@@ -13,15 +13,24 @@ import {Icon} from "react-native-elements";
 interface Props{
     title: string;
     handleMenu: () => void;
+    rightIconName: string;
+    handleRightClick: () => void;
 }
 
-function onDisplayRight() {
-        return (
-            <View/>
-        )
-}
+function HeaderKlea ({title, handleMenu, rightIconName, handleRightClick}: Props) {
+    const _displayRight = () => {
+        if (rightIconName == "none")
+            return (
+                <View/>
+            )
+        else {
+            return (
+                <Button transparent>
+                    <Icon name={rightIconName} color="white" onPress={() => handleRightClick()}/>
+                </Button>)
+        }
+    }
 
-function HeaderKlea ({title, handleMenu}: Props) {
     return (
         <Header style={{ backgroundColor: "#335382", height: 50}}>
             <Left style={{flex: 1}}>
@@ -33,7 +42,7 @@ function HeaderKlea ({title, handleMenu}: Props) {
                 <Title style={{ alignSelf: "center"}}>{title}</Title>
             </Body>
             <Right style={{flex: 1}}>
-                {onDisplayRight() }
+                {_displayRight()}
             </Right>
         </Header>
     );

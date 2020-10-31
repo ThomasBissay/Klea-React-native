@@ -1,4 +1,4 @@
-import {StackNavigationProp} from "@react-navigation/stack";
+import {StackNavigationProp, createStackNavigator} from "@react-navigation/stack";
 import React, { useState } from 'react';
 import {
     StyleSheet,
@@ -11,11 +11,13 @@ import {
 } from 'react-native';
 import {DrawerActions} from "@react-navigation/native";
 import HeaderKlea from "../component/HeaderKlea";
-import EditProfil from "./EditProfil"
 //import { connect } from 'react-redux';
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 type RootStackParamList = {
     Profile: undefined;
+    EditProfil: undefined;
 };
 
 type DrawerNavigationProp = StackNavigationProp<
@@ -49,7 +51,7 @@ function ProfileScreen({navigation}: Props) {
     });
 
     const _goEdit = () => {
-        //navigation.navigate('EditProfil');
+        navigation.navigate('EditProfil');
         console.log('Test');
     }
 
@@ -63,7 +65,8 @@ function ProfileScreen({navigation}: Props) {
 
     return (
         <View style={getStyle().container}>
-            <HeaderKlea title={"Profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}/>
+            <HeaderKlea title={"Profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+                        rightIconName={"edit"} handleRightClick={() => navigation.navigate("EditProfil")}/>
             <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 300}}>
                 <View style={getStyle().body}>
                     <Image source={imageProfil !== "" ? {uri: imageProfil} : require("../assets/example.png")} style={getStyle().avatar}/>
@@ -107,6 +110,31 @@ function ProfileScreen({navigation}: Props) {
             </ScrollView>
         </View>
     );
+
+/*    const _profile = () => {
+        return (<View style={styles.mainContainer}>
+            <HeaderKlea title={"Profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"edit"} handleRightClick={() => navigation.navigate("EditProfile")}/>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Text>Profile Screen</Text>
+            </View>
+        </View>)
+    }
+
+    const _editProfile = () => {
+        return (<View style={styles.mainContainer}>
+            <HeaderKlea title={"Edit Profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"done"} handleRightClick={() => navigation.navigate("Profile")}/>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Text>Profile Screen</Text>
+            </View>
+        </View>)
+    }
+
+    return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Profile" component={_profile} />
+            <Stack.Screen name="EditProfile" component={_editProfile} />
+        </Stack.Navigator>);
+*/
 }
 
 // Configuration et connexion au store (Redux)

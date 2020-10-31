@@ -20,7 +20,7 @@ type Props = {
 function MemoScreen({navigation}: Props) {
         return (
             <View style={styles.mainContainer}>
-                <HeaderKlea title={"Mémo"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}/>
+                <HeaderKlea title={"Mémo"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"more-vert"} handleRightClick={() => console.log("test")}/>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Text>Memo Screen</Text>
         </View>
