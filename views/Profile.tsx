@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {DrawerActions} from "@react-navigation/native";
 import HeaderKlea from "../component/HeaderKlea";
+import EditProfil from "./EditProfil";
 //import { connect } from 'react-redux';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -63,8 +64,8 @@ function ProfileScreen({navigation}: Props) {
         }
     }
 
-    return (
-        <View style={getStyle().container}>
+    const _profile = () => {
+        return ( <View style={getStyle().container}>
             <HeaderKlea title={"Profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}
                         rightIconName={"edit"} handleRightClick={() => navigation.navigate("EditProfil")}/>
             <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 300}}>
@@ -103,38 +104,20 @@ function ProfileScreen({navigation}: Props) {
                             <Text style={getStyle().info}>{bio}</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={getStyle().buttonContainer} onPress={_goEdit}>
-                        <Text style={{ color: 'white'}}>Modifier</Text>
-                    </TouchableOpacity>
                 </View>
             </ScrollView>
-        </View>
-    );
-
-/*    const _profile = () => {
-        return (<View style={styles.mainContainer}>
-            <HeaderKlea title={"Profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"edit"} handleRightClick={() => navigation.navigate("EditProfile")}/>
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text>Profile Screen</Text>
-            </View>
         </View>)
     }
 
     const _editProfile = () => {
-        return (<View style={styles.mainContainer}>
-            <HeaderKlea title={"Edit Profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"done"} handleRightClick={() => navigation.navigate("Profile")}/>
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text>Profile Screen</Text>
-            </View>
-        </View>)
+        return (<EditProfil/>)
     }
 
     return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name="Profile" component={_profile} />
-            <Stack.Screen name="EditProfile" component={_editProfile} />
+            <Stack.Screen name="EditProfil" component={_editProfile} />
         </Stack.Navigator>);
-*/
 }
 
 // Configuration et connexion au store (Redux)
@@ -185,12 +168,12 @@ const stylesPortrait = StyleSheet.create({
         color:"#000000",
         fontWeight:'600',
         marginTop: '3%',
-        marginBottom: '7%'
+        marginBottom: '10%'
     },
     body:{
         backgroundColor: '#e5eaeb',
         alignItems: 'center',
-        padding: '4%',
+        padding: '5%',
         flex: 1,
     },
     infoBox:{
@@ -220,16 +203,6 @@ const stylesPortrait = StyleSheet.create({
     info: {
         height: '30%',
         marginLeft:'6%',
-    },
-    buttonContainer: {
-        height: '13%',
-        marginTop: '4%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '40%',
-        borderRadius:40,
-        backgroundColor: "#335382",
     },
 });
 
@@ -303,15 +276,6 @@ const stylesLandscape = StyleSheet.create({
     info: {
         height: '40%',
         marginLeft:'5%',
-    },
-    buttonContainer: {
-        height: '10%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '35%',
-        borderRadius:40,
-        backgroundColor: "#335382",
     },
 });
 

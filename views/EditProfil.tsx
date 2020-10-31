@@ -12,7 +12,8 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import FeatherIcon from "react-native-vector-icons/Feather"
 import AlertAsync from "react-native-alert-async"
-import {StackNavigationProp} from "@react-navigation/stack";
+import {DrawerActions} from "@react-navigation/native";
+import HeaderKlea from "../component/HeaderKlea";
 //import { connect } from 'react-redux';
 
 function EditProfil () : JSX.Element {
@@ -167,13 +168,17 @@ function EditProfil () : JSX.Element {
         }
     };
 
+    //<Image source={imageProfil !== "" ? {uri: imageProfil} : {uri: require("../assets/example.png")}}
+    //       style={getStyle().avatar}/>
+
     return (
         <View style={getStyle().container}>
-            <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 300}}>
+            <HeaderKlea title={"Editer profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+                        rightIconName={"check"} handleRightClick={() => navigation.goBack()}/>
+            <ScrollView contentContainerStyle={{flexGrow: 1}}>
                 <View style={getStyle().body}>
                     <View>
-                        <Image source={imageProfil !== "" ? {uri: imageProfil} : {uri: require("../assets/example.png")}}
-                               style={getStyle().avatar}/>;
+                        <Image source={imageProfil !== "" ? {uri: imageProfil} : require("../assets/example.png")} style={getStyle().avatar}/>
                         <View style={getStyle().putEditIcon}>
                             <FeatherIcon name="camera" size={15} onPress={myAction} style={getStyle().infoIconEditPhoto}/>
                         </View>
@@ -249,9 +254,6 @@ function EditProfil () : JSX.Element {
                             </View>
                         </View>
                     </View>
-                    <TouchableHighlight style={getStyle().buttonContainer} onPress={ () => _updateInfos()}>
-                        <Text style={{ color: 'white'}}>VALIDER</Text>
-                    </TouchableHighlight>
                 </View>
             </ScrollView>
         </View>
@@ -308,7 +310,6 @@ const stylesPortrait = StyleSheet.create({
         height: '70%',
         borderRadius: 40,
         borderColor: '#bbc0c1',
-        borderWidth: 0.2,
     },
     infoContainer: {
         width: '85%',
@@ -320,7 +321,6 @@ const stylesPortrait = StyleSheet.create({
         flexDirection: 'row',
         alignItems:'center',
     },
-
     infoContainerNames: {
         width: '70%',
         height: '12%',
@@ -361,7 +361,7 @@ const stylesPortrait = StyleSheet.create({
         paddingBottom: '1%',
         paddingLeft: '2%',
         paddingRight: '2%',
-        marginBottom: '2%',
+        marginBottom: '5%',
         backgroundColor: '#e5eaeb',
         alignItems: 'center',
         textAlign: 'center',
@@ -369,13 +369,14 @@ const stylesPortrait = StyleSheet.create({
         borderColor: "white",
     },
     buttonContainer: {
-        height: '6%',
+        height: '13%',
+        marginTop: '4%',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '50%',
-        borderRadius: 40,
-        backgroundColor: "#2e548c",
+        width: '40%',
+        borderRadius:40,
+        backgroundColor: "#335382",
     }
 });
 
