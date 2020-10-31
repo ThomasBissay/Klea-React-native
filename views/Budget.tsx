@@ -20,7 +20,7 @@ type Props = {
 function BudgetScreen({navigation}: Props) {
     return (
         <View style={styles.mainContainer}>
-            <HeaderKlea title={"Mon Budget"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}/>
+            <HeaderKlea title={"Mon Budget"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"none"} handleRightClick={() => console.log("test")}/>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Text>Budget Screen</Text>
             </View>

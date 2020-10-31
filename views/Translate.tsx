@@ -20,7 +20,7 @@ type Props = {
 function TranslateScreen({navigation}: Props) {
     return (
         <View style={styles.mainContainer}>
-            <HeaderKlea title={"Traduction"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}/>
+            <HeaderKlea title={"Traduction"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"none"} handleRightClick={() => console.log("test")}/>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Text>Traduction Screen</Text>
             </View>
