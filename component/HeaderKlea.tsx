@@ -23,7 +23,7 @@ function onDisplayRight() {
 
 function HeaderKlea ({title, handleMenu}: Props) {
     return (
-        <Header style={{ backgroundColor: "#5d9783", height: 50}}>
+        <Header style={{ backgroundColor: "#335382", height: 50}}>
             <Left style={{flex: 1}}>
                 <Button transparent>
                     <Icon name={"menu"} color="white" onPress={() => handleMenu()}/>

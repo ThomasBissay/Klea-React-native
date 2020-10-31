@@ -12,13 +12,10 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import FeatherIcon from "react-native-vector-icons/Feather"
 import AlertAsync from "react-native-alert-async"
+import {StackNavigationProp} from "@react-navigation/stack";
 //import { connect } from 'react-redux';
 
-interface Props {
-    firstName: string;
-}
-
-export function EditProfil (props: Props) : JSX.Element {
+function EditProfil () : JSX.Element {
 
     const isPortrait = () => {
         const dim = Dimensions.get('screen');
@@ -53,7 +50,7 @@ export function EditProfil (props: Props) : JSX.Element {
     }
 
     const _goBack = () => {
-        //props.navigation.goBack();
+        //navigation.goBack();
     }
 
     const _handleEntry = (target: string, text: string) => {
@@ -86,7 +83,7 @@ export function EditProfil (props: Props) : JSX.Element {
 
     const _updateInfos = () => {
         //Redux
-        //props.navigation.goBack();
+        //navigation.goBack();
         console.log("edited\n");
     }
 
@@ -175,7 +172,7 @@ export function EditProfil (props: Props) : JSX.Element {
             <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 300}}>
                 <View style={getStyle().body}>
                     <View>
-                        <Image source={imageProfil !== "" ? {uri: imageProfil} : {uri: require("./assets/example.png")}}
+                        <Image source={imageProfil !== "" ? {uri: imageProfil} : {uri: require("../assets/example.png")}}
                                style={getStyle().avatar}/>;
                         <View style={getStyle().putEditIcon}>
                             <FeatherIcon name="camera" size={15} onPress={myAction} style={getStyle().infoIconEditPhoto}/>
@@ -491,3 +488,5 @@ const stylesLandscape = StyleSheet.create({
         backgroundColor: "#2e548c",
     }
 });
+
+export default EditProfil;
