@@ -2,31 +2,8 @@ import { DrawerActions } from '@react-navigation/native';
 import { Text, View, StyleSheet} from "react-native";
 import HeaderKlea from "../component/HeaderKlea";
 import * as React from "react";
-import {StackNavigationProp} from "@react-navigation/stack";
-
-type RootStackParamList = {
-    Traduction: undefined;
-};
-
-type DrawerNavigationProp = StackNavigationProp<
-    RootStackParamList,
-    'Traduction'
-    >;
-
-type Props = {
-    navigation: DrawerNavigationProp;
-};
-
-function TranslateScreen({navigation}: Props) {
-    return (
-        <View style={styles.mainContainer}>
-            <HeaderKlea title={"Traduction"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"none"} handleRightClick={() => console.log("test")}/>
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text>Traduction Screen</Text>
-            </View>
-        </View>
-    );
-}
+import {decrementCount, incrementCount} from "../redux/actions/incrementer";
+import {connect} from "react-redux";
 
 const styles = StyleSheet.create({
     mainContainer: {
@@ -40,4 +17,36 @@ const styles = StyleSheet.create({
     },
 });
 
-export default TranslateScreen;
+function TranslateScreen(props: any) {
+    return (
+        <View style={styles.mainContainer}>
+            <HeaderKlea title={"Traduction"} handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"none"} handleRightClick={() => console.log("test")}/>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Text>Traduction Screen</Text>
+            </View>
+        </View>
+    );
+}
+
+const mapStateProps = (state: any) => {
+    return {
+        counter: state.counter,
+    };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        increment: (counter: number) => {
+            dispatch(incrementCount(counter));
+        },
+
+        decrement: (counter: number) => {
+            dispatch(decrementCount(counter));
+        },
+    };
+};
+
+export default connect(
+    mapStateProps,
+    mapDispatchToProps,
+)(TranslateScreen);
