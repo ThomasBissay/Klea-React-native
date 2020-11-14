@@ -5,33 +5,38 @@ import {
     Image,
     ScrollView,
     StyleSheet,
-    Text, TextInput, TouchableHighlight,
+    Text, TextInput,
     View,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import FeatherIcon from "react-native-vector-icons/Feather"
 import AlertAsync from "react-native-alert-async"
-import {DrawerActions} from "@react-navigation/native";
 import HeaderKlea from "../component/HeaderKlea";
-//import { connect } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {RootState} from "../redux/store";
+import {updateProfile} from "../redux/actions/profileUpdater";
 
-function EditProfil () : JSX.Element {
+export default function EditProfil (props: any) : JSX.Element {
 
     const isPortrait = () => {
         const dim = Dimensions.get('screen');
         return dim.height >= dim.width;
     };
 
+    // Redux //
+    const data = useSelector((state: RootState) => state.profile);
+    const dispatch = useDispatch();
+
     const [orientation, setOrientation] = useState(isPortrait() ? 'portrait' : 'landscape');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [gender, setGender] = useState('');
-    const [address, setAddress] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [bio, setBio] = useState('');
-    const [imageProfil, setImageProfil] = useState('');
+    const [firstName, setFirstName] = useState(data.firstName);
+    const [lastName, setLastName] = useState(data.lastName);
+    const [email, setEmail] = useState(data.email);
+    const [gender, setGender] = useState(data.gender);
+    const [address, setAddress] = useState(data.address);
+    const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
+    const [bio, setBio] = useState(data.bio);
+    const [imageProfil, setImageProfil] = useState(data.imageProfil);;
 
     // (componentDidMount) //
     useEffect(() => {
@@ -50,42 +55,20 @@ function EditProfil () : JSX.Element {
         }
     }
 
-    const _goBack = () => {
-        //navigation.goBack();
-    }
-
-    const _handleEntry = (target: string, text: string) => {
-        switch (target) {
-            case lastName:
-                setLastName(text);
-                break;
-            case firstName:
-                setFirstName(text);
-                break;
-            case email:
-                setEmail(text);
-                break;
-            case address:
-                setAddress(text);
-                break;
-            case gender:
-                setGender(text);
-                break;
-            case phoneNumber:
-                setPhoneNumber(text);
-                break;
-            case bio:
-                setBio(text);
-                break;
-            default:
-                break;
-        }
-    }
-
     const _updateInfos = () => {
-        //Redux
-        //navigation.goBack();
-        console.log("edited\n");
+        dispatch(
+            updateProfile({
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                gender: gender,
+                address: address,
+                phoneNumber: phoneNumber,
+                bio: bio,
+                imageProfil: imageProfil,
+            })
+        )
+        props.navigation.goBack();
     }
 
     const getPermissionAsync = async () => {
@@ -168,13 +151,10 @@ function EditProfil () : JSX.Element {
         }
     };
 
-    //<Image source={imageProfil !== "" ? {uri: imageProfil} : {uri: require("../assets/example.png")}}
-    //       style={getStyle().avatar}/>
-
     return (
         <View style={getStyle().container}>
-            <HeaderKlea title={"Editer profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-                        rightIconName={"check"} handleRightClick={() => navigation.goBack()}/>
+            <HeaderKlea title={"Editer profil"} handleMenu={() => props.navigation.goBack()}
+                        leftIconName={"close"} rightIconName={"check"} handleRightClick={() => _updateInfos()}/>
             <ScrollView contentContainerStyle={{flexGrow: 1}}>
                 <View style={getStyle().body}>
                     <View>
@@ -187,14 +167,16 @@ function EditProfil () : JSX.Element {
                         <View style={getStyle().infoContainerNames}>
                             <View style={{alignItems: 'stretch', paddingLeft: '2%', paddingRight: '2%'}}>
                                 <Text style={getStyle().name}>Nom</Text>
-                                <TextInput style={getStyle().input} placeholder="Quel est ton nom ?" placeholderTextColor="#9C9593" autoCapitalize="none"
-                                           onChangeText={(text) => _handleEntry('lastName', text)}
+                                <TextInput style={getStyle().input} placeholder="Quel est ton nom ?"
+                                           placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={lastName}
+                                           maxLength={20} onChangeText={text => setLastName(text)}
                                 />
                             </View>
                             <View style={{alignItems: 'stretch', paddingLeft: '2%', paddingRight: '2%'}}>
                                 <Text style={getStyle().name}>Prénom</Text>
-                                <TextInput style={getStyle().input} placeholder="Quel est ton prénom ?" placeholderTextColor="#9C9593" autoCapitalize="none"
-                                           onChangeText={(text) => _handleEntry('firstName', text)}
+                                <TextInput style={getStyle().input} placeholder="Quel est ton prénom ?"
+                                           placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={firstName}
+                                           maxLength={20} onChangeText={text => setFirstName(text)}
                                 />
                             </View>
                         </View>
@@ -204,8 +186,9 @@ function EditProfil () : JSX.Element {
                                    resizeMode="contain"/>
                             <View style={{alignItems: 'flex-start', flex: 1}}>
                                 <Text style={getStyle().title_section}>Mail de contact</Text>
-                                <TextInput style={getStyle().input} placeholder="Sur quelle mail peut-on te contacter ?" placeholderTextColor="#9C9593" autoCapitalize="none"
-                                           onChangeText={(text) => _handleEntry('email', text)}
+                                <TextInput style={getStyle().input} placeholder="Sur quelle mail peut-on te contacter ?"
+                                           placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={email}
+                                           keyboardType={"email-address"} maxLength={30} onChangeText={text => setEmail(text)}
                                 />
                             </View>
                         </View>
@@ -216,8 +199,9 @@ function EditProfil () : JSX.Element {
                             />
                             <View style={{alignItems: 'flex-start', flex: 1}}>
                                 <Text style={getStyle().title_section}>Adresse</Text>
-                                <TextInput style={getStyle().input} placeholder="Où habites-tu ?" placeholderTextColor="#9C9593" autoCapitalize="none"
-                                           onChangeText={(text) => _handleEntry('address', text)}
+                                <TextInput style={getStyle().input} placeholder="Où habites-tu ?"
+                                           placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={address}
+                                           maxLength={40} onChangeText={text => setAddress(text)}
                                 />
                             </View>
                         </View>
@@ -227,8 +211,9 @@ function EditProfil () : JSX.Element {
                                    resizeMode="contain"/>
                             <View style={{alignItems: 'flex-start', flex: 1}}>
                                 <Text style={getStyle().title_section}>Genre</Text>
-                                <TextInput style = {getStyle().input} placeholder="Homme/Femme/Autre" placeholderTextColor="#9C9593" autoCapitalize="none"
-                                           onChangeText={(text) => _handleEntry('gender', text)}
+                                <TextInput style = {getStyle().input} placeholder="Homme/Femme/Autre"
+                                           placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={gender}
+                                           maxLength={15} onChangeText={text => setGender(text)}
                                 />
                             </View>
                         </View>
@@ -238,8 +223,9 @@ function EditProfil () : JSX.Element {
                                    resizeMode="contain"/>
                             <View style={{alignItems: 'flex-start', flex: 1}}>
                                 <Text style={getStyle().title_section}>Téléphone</Text>
-                                <TextInput style = {getStyle().input} placeholder="Quel est ton numéro de téléphone ?" placeholderTextColor="#9C9593" autoCapitalize="none"
-                                           onChangeText={(text) => _handleEntry('phoneNumber', text)}
+                                <TextInput style = {getStyle().input} placeholder="Quel est ton numéro de téléphone ?"
+                                           placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={phoneNumber}
+                                           keyboardType={"phone-pad"} maxLength={12} onChangeText={text => setPhoneNumber(text)}
                                 />
                             </View>
                         </View>
@@ -249,8 +235,10 @@ function EditProfil () : JSX.Element {
                                    resizeMode="contain"/>
                             <View style={{alignItems: 'flex-start', flex: 1}}>
                                 <Text style={getStyle().title_section}>Informations complémentaires</Text>
-                                <TextInput style = {getStyle().input} placeholder="À propos de toi" placeholderTextColor="#9C9593" autoCapitalize="none"
-                                           onChangeText={(text) => _handleEntry('bio', text)}/>
+                                <TextInput style = {getStyle().input} placeholder="À propos de toi"
+                                           placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={bio}
+                                           maxLength={50} onChangeText={text => setBio(text)}
+                                />
                             </View>
                         </View>
                     </View>
@@ -260,17 +248,6 @@ function EditProfil () : JSX.Element {
     );
 }
 
-// Configuration et connexion au store (Redux)
-/*const mapStateToProps = (state) => {
-    return {
-        font: state.font,
-        color: state.color,
-        token: state.token,
-    }
-};
-
-export default connect(mapStateToProps)(EditProfil);
-*/
 const stylesPortrait = StyleSheet.create({
     title_section:{
         fontSize:12,
@@ -489,5 +466,3 @@ const stylesLandscape = StyleSheet.create({
         backgroundColor: "#2e548c",
     }
 });
-
-export default EditProfil;

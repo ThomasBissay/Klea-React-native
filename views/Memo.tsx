@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
 function MemoScreen(props: any) {
         return (
             <View style={styles.mainContainer}>
-                <HeaderKlea title={"Mémo"} handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"more-vert"} handleRightClick={() => console.log("test")}/>
+                <HeaderKlea title={"Mémo"} handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())} leftIconName={"menu"} rightIconName={"more-vert"}
+                            handleRightClick={() => console.log("test")}/>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Text>{props.counter.counter}</Text>
             <Button

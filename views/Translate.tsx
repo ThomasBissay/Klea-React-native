@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
 function TranslateScreen(props: any) {
     return (
         <View style={styles.mainContainer}>
-            <HeaderKlea title={"Traduction"} handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())} rightIconName={"none"} handleRightClick={() => console.log("test")}/>
+            <HeaderKlea title={"Traduction"} handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())} leftIconName={"menu"} rightIconName={"none"}
+                        handleRightClick={() => console.log("test")}/>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Text>Traduction Screen</Text>
             </View>

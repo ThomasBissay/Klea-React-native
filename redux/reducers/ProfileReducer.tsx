@@ -1,26 +1,24 @@
-import { INCREMENT_COUNT, DECREMENT_COUNT } from '../actions/types';
+import {ProfileState, UPDATE_PROFILE, ProfileActionsTypes} from '../actions/types';
 
-const initialState = {
-    counter: 0,
+const initialState: ProfileState = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    address: '',
+    gender: '',
+    phoneNumber: '',
+    bio: '',
+    imageProfil: '',
 };
 
-const counter = (state = initialState, action: any) => {
+export default function profileReducer(state= initialState, action: ProfileActionsTypes): ProfileState {
     switch (action.type) {
-        case INCREMENT_COUNT:
+        case UPDATE_PROFILE:
             return {
                 ...state,
-                counter: state.counter + 1,
+                ...action.payload
             };
-
-        case DECREMENT_COUNT:
-            return {
-                ...state,
-                counter: state.counter - 1,
-            };
-
         default:
-            return state;
+            return state
     }
-};
-
-export default counter;
+}

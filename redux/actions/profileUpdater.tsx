@@ -1,15 +1,8 @@
-import {INCREMENT_COUNT, DECREMENT_COUNT} from './types';
+import {ProfileState, UPDATE_PROFILE, ProfileActionsTypes} from './types';
 
-export const incrementCount = (counter: number) => {
+export function updateProfile(newProfile: ProfileState): ProfileActionsTypes {
     return {
-        type: INCREMENT_COUNT,
-        payload: counter,
+        type: UPDATE_PROFILE,
+        payload: newProfile,
     };
-};
-
-export const decrementCount = (counter: number) => {
-    return {
-        type: DECREMENT_COUNT,
-        payload: counter,
-    };
-};
+}

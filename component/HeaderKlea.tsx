@@ -13,11 +13,20 @@ import {Icon} from "react-native-elements";
 interface Props{
     title: string;
     handleMenu: () => void;
+    leftIconName: string;
     rightIconName: string;
     handleRightClick: () => void;
 }
 
-function HeaderKlea ({title, handleMenu, rightIconName, handleRightClick}: Props) {
+function HeaderKlea ({title, handleMenu, leftIconName, rightIconName, handleRightClick}: Props) {
+
+    const _displayLeft = () => {
+        if (leftIconName == "none")
+            return (<Icon name={"menu"} color="white" onPress={() => handleMenu()}/>)
+        else
+            return (<Icon name={leftIconName} color="white" onPress={() => handleMenu()}/>)
+    }
+
     const _displayRight = () => {
         if (rightIconName == "none")
             return (
@@ -35,7 +44,7 @@ function HeaderKlea ({title, handleMenu, rightIconName, handleRightClick}: Props
         <Header style={{ backgroundColor: "#335382", height: 50}}>
             <Left style={{flex: 1}}>
                 <Button transparent>
-                    <Icon name={"menu"} color="white" onPress={() => handleMenu()}/>
+                    {_displayLeft()}
                 </Button>
             </Left>
             <Body style={{flex: 2}}>
