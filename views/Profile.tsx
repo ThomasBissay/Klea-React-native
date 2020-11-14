@@ -1,4 +1,3 @@
-import {StackNavigationProp, createStackNavigator} from "@react-navigation/stack";
 import React, { useState } from 'react';
 import {
     StyleSheet,
@@ -7,54 +6,25 @@ import {
     Image,
     Dimensions,
     ScrollView,
-    TouchableOpacity,
 } from 'react-native';
 import {DrawerActions} from "@react-navigation/native";
 import HeaderKlea from "../component/HeaderKlea";
-import EditProfil from "./EditProfil";
-//import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { RootState} from "../redux/store";
 
-const Stack = createStackNavigator<RootStackParamList>();
-
-type RootStackParamList = {
-    Profile: undefined;
-    EditProfil: undefined;
-};
-
-type DrawerNavigationProp = StackNavigationProp<
-    RootStackParamList,
-    'Profile'
-    >;
-
-type Props = {
-    navigation: DrawerNavigationProp;
-};
-
-function ProfileScreen({navigation}: Props) {
+export default function ProfileScreen(props: any): JSX.Element {
 
     const isPortrait = () => {
         const dim = Dimensions.get('screen');
         return dim.height >= dim.width;
     };
 
+    const data = useSelector((state: RootState) => state.profile);
     const [orientation, setOrientation] = useState(isPortrait() ? 'portrait' : 'landscape');
-    const [firstName, setFirstName] = useState('Thomas');
-    const [lastName, setLastName] = useState('Bissay');
-    const [email, setEmail] = useState('thomas.bissay@epitech.eu');
-    const [gender, setGender] = useState('Homme');
-    const [address, setAddress] = useState('10 rue Auguste, Deauville');
-    const [phoneNumber, setPhoneNumber] = useState('0600000000');
-    const [bio, setBio] = useState('Amateur de photographie');
-    const [imageProfil, setUriPhoto] = useState('');
 
     Dimensions.addEventListener('change', () => {
         setOrientation(isPortrait() ? 'portrait' : 'landscape');
     });
-
-    const _goEdit = () => {
-        navigation.navigate('EditProfil');
-        console.log('Test');
-    }
 
     const getStyle = () => {
         if (orientation === 'landscape') {
@@ -64,73 +34,49 @@ function ProfileScreen({navigation}: Props) {
         }
     }
 
-    const _profile = () => {
-        return ( <View style={getStyle().container}>
-            <HeaderKlea title={"Profil"} handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-                        rightIconName={"edit"} handleRightClick={() => navigation.navigate("EditProfil")}/>
-            <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 300}}>
-                <View style={getStyle().body}>
-                    <Image source={imageProfil !== "" ? {uri: imageProfil} : require("../assets/example.png")} style={getStyle().avatar}/>
-                    <Text style={getStyle().name}>{lastName} {firstName}</Text>
-                    <View style={getStyle().infoBox}>
-                        <View style={getStyle().infoContainer}>
-                            <Image style={getStyle().infoIcon}
-                                   source={{uri: 'https://img.icons8.com/material-sharp/24/000000/important-mail.png'}}
-                                   resizeMode="contain"/>
-                            <Text style={getStyle().info}>{email}</Text>
-                        </View>
-                        <View style={getStyle().infoContainer}>
-                            <Image style={getStyle().infoIcon}
-                                   source={{uri: 'https://img.icons8.com/material-sharp/24/000000/gender.png'}}
-                                   resizeMode="contain"/>
-                            <Text style={getStyle().info}>{gender}</Text>
-                        </View>
-                        <View style={getStyle().infoContainer}>
-                            <Image style={getStyle().infoIcon}
-                                   source={{uri: 'https://img.icons8.com/material-rounded/24/000000/home.png'}}
-                                   resizeMode="contain"/>
-                            <Text style={getStyle().info}>{address}</Text>
-                        </View>
-                        <View style={getStyle().infoContainer}>
-                            <Image style={getStyle().infoIcon}
-                                   source={{uri: 'https://img.icons8.com/android/24/000000/phone.png'}}
-                                   resizeMode="contain"/>
-                            <Text style={getStyle().info}>{phoneNumber}</Text>
-                        </View>
-                        <View style={getStyle().infoContainer}>
-                            <Image style={getStyle().infoIcon}
-                                   source={{uri: 'https://img.icons8.com/metro/26/000000/info.png'}}
-                                   resizeMode="contain"/>
-                            <Text style={getStyle().info}>{bio}</Text>
-                        </View>
+    return ( <View style={getStyle().container}>
+        <HeaderKlea title={"Profil"} handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
+                    leftIconName={"menu"} rightIconName={"edit"} handleRightClick={() => props.navigation.navigate("EditProfil")}/>
+        <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 300}}>
+            <View style={getStyle().body}>
+                <Image source={data.imageProfil !== "" ? {uri: data.imageProfil} : require("../assets/example.png")} style={getStyle().avatar}/>
+                <Text style={getStyle().name}>{data.firstName !== "" ? data.firstName + " " + data.lastName : "Anonyme"} </Text>
+                <View style={getStyle().infoBox}>
+                    <View style={getStyle().infoContainer}>
+                        <Image style={getStyle().infoIcon}
+                               source={{uri: 'https://img.icons8.com/material-sharp/24/000000/important-mail.png'}}
+                               resizeMode="contain"/>
+                        <Text style={getStyle().info}>{data.email !== "" ? data.email : "Non renseigné"}</Text>
+                    </View>
+                    <View style={getStyle().infoContainer}>
+                        <Image style={getStyle().infoIcon}
+                               source={{uri: 'https://img.icons8.com/material-sharp/24/000000/gender.png'}}
+                               resizeMode="contain"/>
+                        <Text style={getStyle().info}>{data.gender !== "" ? data.gender : "Non renseigné"}</Text>
+                    </View>
+                    <View style={getStyle().infoContainer}>
+                        <Image style={getStyle().infoIcon}
+                               source={{uri: 'https://img.icons8.com/material-rounded/24/000000/home.png'}}
+                               resizeMode="contain"/>
+                        <Text style={getStyle().info}>{data.address !== "" ? data.address : "Non renseigné"}</Text>
+                    </View>
+                    <View style={getStyle().infoContainer}>
+                        <Image style={getStyle().infoIcon}
+                               source={{uri: 'https://img.icons8.com/android/24/000000/phone.png'}}
+                               resizeMode="contain"/>
+                        <Text style={getStyle().info}>{data.phoneNumber !== "" ? data.phoneNumber : "Non renseigné"}</Text>
+                    </View>
+                    <View style={getStyle().infoContainer}>
+                        <Image style={getStyle().infoIcon}
+                               source={{uri: 'https://img.icons8.com/metro/26/000000/info.png'}}
+                               resizeMode="contain"/>
+                        <Text style={getStyle().info}>{data.bio !== "" ? data.bio : "Non renseigné"}</Text>
                     </View>
                 </View>
-            </ScrollView>
-        </View>)
-    }
-
-    const _editProfile = () => {
-        return (<EditProfil/>)
-    }
-
-    return (
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="Profile" component={_profile} />
-            <Stack.Screen name="EditProfil" component={_editProfile} />
-        </Stack.Navigator>);
+            </View>
+        </ScrollView>
+    </View>)
 }
-
-// Configuration et connexion au store (Redux)
-/*const mapStateToProps = (state) => {
-    return {
-        font: state.font,
-        color: state.color,
-        token: state.token,
-    }
-};
-
-export default connect(mapStateToProps)(Profil);
-*/
 
 const stylesPortrait = StyleSheet.create({
     buttonText: {
@@ -278,5 +224,3 @@ const stylesLandscape = StyleSheet.create({
         marginLeft:'5%',
     },
 });
-
-export default ProfileScreen;
