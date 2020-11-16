@@ -14,20 +14,13 @@ import AlertAsync from 'react-native-alert-async';
 import { useSelector, useDispatch } from 'react-redux';
 import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
-import { updateProfile } from '../redux/actions/profileUpdater';
+import updateProfile from '../redux/actions/profileUpdater';
 import { stylesPortrait, stylesLandscape } from '../styles/styles';
 
 export default function EditProfil(props: any) : JSX.Element {
   const isPortrait = () => {
     const dim = Dimensions.get('screen');
     return dim.height >= dim.width;
-  };
-
-  const getStyle = () => {
-    if (orientation === 'landscape') {
-      return stylesLandscape;
-    }
-    return stylesPortrait;
   };
 
   // Redux //
@@ -43,6 +36,13 @@ export default function EditProfil(props: any) : JSX.Element {
   const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
   const [bio, setBio] = useState(data.bio);
   const [imageProfil, setImageProfil] = useState(data.imageProfil);
+
+  const getStyle = () => {
+    if (orientation === 'landscape') {
+      return stylesLandscape;
+    }
+    return stylesPortrait;
+  };
 
   const getPermissionAsync = async () => {
     if (Platform.OS === 'ios') {
@@ -149,7 +149,7 @@ export default function EditProfil(props: any) : JSX.Element {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={getStyle().body}>
           <View>
-            <Image source={imageProfil !== '' ? { uri: imageProfil } : require('../assets/example.png')} style={getStyle().avatar} />
+            <Image source={imageProfil !== '' ? { uri: imageProfil } : ('../assets/example.png')} style={getStyle().avatar} />
             <View style={getStyle().putEditIcon}>
               <FeatherIcon name="camera" size={15} onPress={myAction} style={getStyle().infoIconEditPhoto} />
             </View>
