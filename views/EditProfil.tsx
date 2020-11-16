@@ -44,7 +44,7 @@ export default function EditProfil (props: any) : JSX.Element {
     const [address, setAddress] = useState(data.address);
     const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
     const [bio, setBio] = useState(data.bio);
-    const [imageProfil, setImageProfil] = useState(data.imageProfil);;
+    const [imageProfil, setImageProfil] = useState(data.imageProfil);
 
     // (componentDidMount) //
     useEffect(() => {
