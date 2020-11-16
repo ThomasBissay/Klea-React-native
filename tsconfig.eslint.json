@@ -4,7 +4,6 @@
       "babel.config.js",
       ".eslintrc.js",
       "App.test.tsx",
-      "App.tsx",
-      "babel.config.js",
+      "App.tsx"
     ]
   }
