@@ -44,6 +44,7 @@ export default function ProfileScreen(props: any): JSX.Element {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={getStyle().body}>
           <View style={{ alignItems: 'center' }}>
+            {/* eslint-disable-next-line global-require */}
             <Image source={data.imageProfil !== '' ? { uri: data.imageProfil } : require('../assets/example.png')} style={getStyle().avatar} />
             <Text style={getStyle().name}>
               {data.firstName !== '' ? `${data.firstName} ${data.lastName}` : 'Anonyme'}

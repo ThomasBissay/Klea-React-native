@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  Platform,
   Dimensions,
   Image,
   ScrollView,
@@ -44,25 +43,6 @@ export default function EditProfil(props: any) : JSX.Element {
     return stylesPortrait;
   };
 
-  const getPermissionAsync = async () => {
-    if (Platform.OS === 'ios') {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== 'granted') {
-        alert('Nous avons besoin d\'avoir accès à votre album photo pour importer une photo de profil');
-      } else {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        if (status !== 'granted') {
-          alert('Nous avons besoin d\'avoir accès à votre caméra pour prendre une photo de profil');
-        }
-      }
-    }
-  };
-
-  // (componentDidMount) //
-  useEffect(() => {
-    getPermissionAsync().then();
-  }, []);
-
   Dimensions.addEventListener('change', () => {
     setOrientation(isPortrait() ? 'portrait' : 'landscape');
   });
@@ -90,26 +70,46 @@ export default function EditProfil(props: any) : JSX.Element {
 
   // Photo à partir de la gallerie //
   const pickImageFromLibrary = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
-    if (!result.cancelled) {
-      setImageProfil(result.uri);
+    const permission = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    let authorize = false;
+    if (permission.status !== 'granted') {
+      const newPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (newPermission.status === 'granted') {
+        authorize = true;
+      }
+    } else authorize = true;
+    if (authorize) {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
+      if (!result.cancelled) {
+        setImageProfil(result.uri);
+      }
     }
   };
 
   // Photo à partir de la caméra //
   const pickImageFromCamera = async () => {
-    const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
+    const permission = await Permissions.getAsync(Permissions.CAMERA);
+    let authorize = false;
+    if (permission.status !== 'granted') {
+      const newPermission = await Permissions.askAsync(Permissions.CAMERA);
+      if (newPermission.status === 'granted') {
+        authorize = true;
+      }
+    } else authorize = true;
+    if (authorize) {
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
 
-    if (!result.cancelled) {
-      setImageProfil(result.uri);
+      if (!result.cancelled) {
+        setImageProfil(result.uri);
+      }
     }
   };
 
@@ -149,7 +149,8 @@ export default function EditProfil(props: any) : JSX.Element {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={getStyle().body}>
           <View>
-            <Image source={imageProfil !== '' ? { uri: imageProfil } : ('../assets/example.png')} style={getStyle().avatar} />
+            {/* eslint-disable-next-line global-require */}
+            <Image source={imageProfil !== '' ? { uri: imageProfil } : require('../assets/example.png')} style={getStyle().avatar} />
             <View style={getStyle().putEditIcon}>
               <FeatherIcon name="camera" size={15} onPress={myAction} style={getStyle().infoIconEditPhoto} />
             </View>

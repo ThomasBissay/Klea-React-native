@@ -20,7 +20,7 @@ export function Profile(): JSX.Element {
   );
 }
 
-export default function AppNavigator(): JSX.Element{
+export default function AppNavigator(): JSX.Element {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Memo">
