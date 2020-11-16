@@ -4,7 +4,6 @@ import {
     Dimensions,
     Image,
     ScrollView,
-    StyleSheet,
     Text, TextInput,
     View,
 } from 'react-native';
@@ -16,6 +15,7 @@ import HeaderKlea from "../component/HeaderKlea";
 import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from "../redux/store";
 import {updateProfile} from "../redux/actions/profileUpdater";
+import {stylesPortrait, stylesLandscape} from "../styles/styles";
 
 export default function EditProfil (props: any) : JSX.Element {
 
@@ -23,6 +23,14 @@ export default function EditProfil (props: any) : JSX.Element {
         const dim = Dimensions.get('screen');
         return dim.height >= dim.width;
     };
+
+    const getStyle = () => {
+        if (orientation === 'landscape') {
+            return stylesLandscape;
+        } else {
+            return stylesPortrait;
+        }
+    }
 
     // Redux //
     const data = useSelector((state: RootState) => state.profile);
@@ -46,14 +54,6 @@ export default function EditProfil (props: any) : JSX.Element {
     Dimensions.addEventListener('change', () => {
         setOrientation(isPortrait() ? 'portrait' : 'landscape');
     });
-
-    const getStyle = () => {
-        if (orientation === 'landscape') {
-            return stylesLandscape;
-        } else {
-            return stylesPortrait;
-        }
-    }
 
     const _updateInfos = () => {
         dispatch(
@@ -163,17 +163,17 @@ export default function EditProfil (props: any) : JSX.Element {
                             <FeatherIcon name="camera" size={15} onPress={myAction} style={getStyle().infoIconEditPhoto}/>
                         </View>
                     </View>
-                    <View style={getStyle().infoBox}>
+                    <View style={getStyle().infoBoxEdit}>
                         <View style={getStyle().infoContainerNames}>
                             <View style={{alignItems: 'stretch', paddingLeft: '2%', paddingRight: '2%'}}>
-                                <Text style={getStyle().name}>Nom</Text>
+                                <Text style={getStyle().title_section}>Nom</Text>
                                 <TextInput style={getStyle().input} placeholder="Quel est ton nom ?"
                                            placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={lastName}
                                            maxLength={20} onChangeText={text => setLastName(text)}
                                 />
                             </View>
                             <View style={{alignItems: 'stretch', paddingLeft: '2%', paddingRight: '2%'}}>
-                                <Text style={getStyle().name}>Prénom</Text>
+                                <Text style={getStyle().title_section}>Prénom</Text>
                                 <TextInput style={getStyle().input} placeholder="Quel est ton prénom ?"
                                            placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={firstName}
                                            maxLength={20} onChangeText={text => setFirstName(text)}
@@ -237,7 +237,7 @@ export default function EditProfil (props: any) : JSX.Element {
                                 <Text style={getStyle().title_section}>Informations complémentaires</Text>
                                 <TextInput style = {getStyle().input} placeholder="À propos de toi"
                                            placeholderTextColor="#9C9593" autoCapitalize="none" defaultValue={bio}
-                                           maxLength={50} onChangeText={text => setBio(text)}
+                                           maxLength={120} onChangeText={text => setBio(text)}
                                 />
                             </View>
                         </View>
@@ -247,222 +247,3 @@ export default function EditProfil (props: any) : JSX.Element {
         </View>
     );
 }
-
-const stylesPortrait = StyleSheet.create({
-    title_section:{
-        fontSize:12,
-        color: "#696969",
-        marginTop:'3%',
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#e5eaeb',
-    },
-    avatar: {
-        width: 150,
-        height: 150,
-        borderRadius: 75,
-        borderWidth: 4,
-        borderColor: "white",
-        position: 'absolute',
-        alignSelf:'center',
-    },
-    name:{
-        fontSize:12,
-        color:"#696969",
-        marginTop: '2%',
-    },
-    body:{
-        backgroundColor: '#e5eaeb',
-        alignItems: 'center',
-        padding: '4%',
-    },
-    infoBox:{
-        paddingTop: '1%',
-        marginBottom: '2%',
-        backgroundColor:'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '70%',
-        borderRadius: 40,
-        borderColor: '#bbc0c1',
-    },
-    infoContainer: {
-        width: '85%',
-        height: '12%',
-        marginBottom: '5%',
-        borderColor: '#2e548c',
-        borderRadius: 40,
-        textAlign: 'center',
-        flexDirection: 'row',
-        alignItems:'center',
-    },
-    infoContainerNames: {
-        width: '70%',
-        height: '12%',
-        borderColor: '#2e548c',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 40,
-        marginBottom: '5%',
-        paddingLeft: '1%',
-        marginLeft: '1%',
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-    },
-    infoIcon:{
-        alignSelf: 'center',
-        width: '10%',
-        height: '40%',
-        marginLeft: '1%',
-        marginRight: '1%'
-    },
-    input: {
-        fontSize: 12,
-        color: '#000000',
-        height: '55%',
-        alignSelf: 'stretch',
-        paddingLeft: '1%',
-        paddingRight: '1%',
-        borderColor: '#5b5b5b',
-        borderBottomWidth: 1
-    },
-    putEditIcon: {
-        paddingTop: '35%',
-        paddingLeft: '20%'
-
-    },
-    infoIconEditPhoto: {
-        paddingTop: '2%',
-        paddingBottom: '1%',
-        paddingLeft: '2%',
-        paddingRight: '2%',
-        marginBottom: '5%',
-        backgroundColor: '#e5eaeb',
-        alignItems: 'center',
-        textAlign: 'center',
-        borderWidth: 4,
-        borderColor: "white",
-    },
-    buttonContainer: {
-        height: '13%',
-        marginTop: '4%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '40%',
-        borderRadius:40,
-        backgroundColor: "#335382",
-    }
-});
-
-const stylesLandscape = StyleSheet.create({
-    input: {
-        fontSize: 12,
-        color: '#000000',
-        height: '45%',
-        alignSelf: 'stretch',
-        paddingLeft: '1%',
-        paddingRight: '1%',
-        borderColor: '#5b5b5b',
-        borderBottomWidth: 1
-    },
-    title_section:{
-        fontSize:12,
-        color: "#696969",
-        marginTop:'3%',
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#e5eaeb',
-    },
-    avatar: {
-        width: 130,
-        height: 130,
-        borderRadius: 63,
-        borderWidth: 4,
-        borderColor: "white",
-        alignSelf:'center',
-        position: 'absolute',
-    },
-    name:{
-        fontSize:12,
-        color:"#696969",
-    },
-    body:{
-        backgroundColor: '#e5eaeb',
-        marginTop: "1%",
-        alignItems: 'center',
-        padding: '1%',
-        //flex: 1,
-        borderColor: '#bbc0c1',
-        borderWidth: 0.2,
-    },
-    infoBox:{
-        flex: 0.7,
-        backgroundColor:'white',
-        alignItems: 'center',
-        marginTop: '3%',
-        marginBottom: '3%',
-        justifyContent: 'center',
-        width: '70%',
-        height: '70%',
-        borderRadius: 40,
-        borderColor: '#bbc0c1',
-        borderWidth: 0.2,
-    },
-    infoContainer: {
-        width: '90%',
-        height: '12%',
-        borderColor: '#2e548c',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 40,
-        marginBottom: '3%',
-        flexDirection: 'row',
-        alignItems:'center',
-    },
-    infoContainerNames: {
-        width: '70%',
-        height: '9%',
-        borderColor: '#2e548c',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 40,
-        marginBottom: '0.5%',
-        marginLeft: '6%',
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-    },
-    infoIcon:{
-        width: '10%',
-        height: '40%',
-        marginLeft: '3%',
-        marginRight: '3%',
-    },
-    putEditIcon: {
-        paddingTop: '12%',
-        paddingLeft: '12%',
-        alignItems: 'center'
-    },
-    infoIconEditPhoto: {
-        paddingTop: '1.5%',
-        paddingBottom: '1%',
-        paddingLeft: '1.5%',
-        paddingRight: '1.5%',
-        backgroundColor: '#e5eaeb',
-        alignItems: 'center',
-        textAlign: 'center',
-        borderWidth: 4,
-        borderColor: "white",
-    },
-    buttonContainer: {
-        height: '10%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '35%',
-        borderRadius: 40,
-        backgroundColor: "#2e548c",
-    }
-});
