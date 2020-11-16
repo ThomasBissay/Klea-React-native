@@ -27,7 +27,6 @@
     ],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"
   },
-  "dependencies": {
  "dependencies": {
     "@react-native-community/datetimepicker": "^3.0.4",
     "@react-native-community/masked-view": "0.1.10",
