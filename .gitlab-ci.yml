@@ -10,9 +10,6 @@ cache:
 
 install_mobile:
   stage: install
-  only:
-    - develop
-    - master
   script:
     - npm cache clean --force
     - npm install
