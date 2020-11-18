@@ -41,7 +41,7 @@ function HeaderKlea({
   };
 
   return (
-    <Header style={{ backgroundColor: '#335382', height: 50 }}>
+    <Header style={{ backgroundColor: '#5d9683', height: 50 }}>
       <Left style={{ flex: 1 }}>
         <Button transparent>
           {displayLeft()}

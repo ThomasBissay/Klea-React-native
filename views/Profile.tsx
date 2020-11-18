@@ -1,39 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Text,
   View,
   Image,
-  Dimensions,
   ScrollView,
 } from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
-import { stylesPortrait, stylesLandscape } from '../styles/styles';
+import { style } from '../styles/styles';
 
 export default function ProfileScreen(props: any): JSX.Element {
-  const isPortrait = () => {
-    const dim = Dimensions.get('screen');
-    return dim.height >= dim.width;
-  };
 
   const data = useSelector((state: RootState) => state.profile);
-  const [orientation, setOrientation] = useState(isPortrait() ? 'portrait' : 'landscape');
-
-  Dimensions.addEventListener('change', () => {
-    setOrientation(isPortrait() ? 'portrait' : 'landscape');
-  });
-
-  const getStyle = () => {
-    if (orientation === 'landscape') {
-      return stylesLandscape;
-    }
-    return stylesPortrait;
-  };
 
   return (
-    <View style={getStyle().container}>
+    <View style={style.container}>
       <HeaderKlea
         title="Profil"
         handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
@@ -42,55 +25,55 @@ export default function ProfileScreen(props: any): JSX.Element {
         handleRightClick={() => props.navigation.navigate('EditProfil')}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={getStyle().body}>
+        <View style={style.body}>
           <View style={{ alignItems: 'center' }}>
             {/* eslint-disable-next-line global-require */}
-            <Image source={data.imageProfil !== '' ? { uri: data.imageProfil } : require('../assets/example.png')} style={getStyle().avatar} />
-            <Text style={getStyle().name}>
+            <Image source={data.imageProfil !== '' ? { uri: data.imageProfil } : require('../assets/example.png')} style={style.avatar} />
+            <Text style={style.name}>
               {data.firstName !== '' ? `${data.firstName} ${data.lastName}` : 'Anonyme'}
               {' '}
             </Text>
           </View>
-          <View style={getStyle().infoBox}>
-            <View style={getStyle().infoContainer}>
+          <View style={style.infoBox}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/important-mail.png' }}
                 resizeMode="contain"
               />
-              <Text style={getStyle().info}>{data.email !== '' ? data.email : 'Non renseigné'}</Text>
+              <Text style={style.info}>{data.email !== '' ? data.email : 'Non renseigné'}</Text>
             </View>
-            <View style={getStyle().infoContainer}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/gender.png' }}
                 resizeMode="contain"
               />
-              <Text style={getStyle().info}>{data.gender !== '' ? data.gender : 'Non renseigné'}</Text>
+              <Text style={style.info}>{data.gender !== '' ? data.gender : 'Non renseigné'}</Text>
             </View>
-            <View style={getStyle().infoContainer}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/material-rounded/24/000000/home.png' }}
                 resizeMode="contain"
               />
-              <Text style={getStyle().info}>{data.address !== '' ? data.address : 'Non renseigné'}</Text>
+              <Text style={style.info}>{data.address !== '' ? data.address : 'Non renseigné'}</Text>
             </View>
-            <View style={getStyle().infoContainer}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/android/24/000000/phone.png' }}
                 resizeMode="contain"
               />
-              <Text style={getStyle().info}>{data.phoneNumber !== '' ? data.phoneNumber : 'Non renseigné'}</Text>
+              <Text style={style.info}>{data.phoneNumber !== '' ? data.phoneNumber : 'Non renseigné'}</Text>
             </View>
-            <View style={getStyle().infoContainer}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/metro/26/000000/info.png' }}
                 resizeMode="contain"
               />
-              <Text style={getStyle().info}>{data.bio !== '' ? data.bio : 'Non renseigné'}</Text>
+              <Text style={style.info}>{data.bio !== '' ? data.bio : 'Non renseigné'}</Text>
             </View>
           </View>
         </View>

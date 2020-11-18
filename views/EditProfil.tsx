@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Dimensions,
   Image,
   ScrollView,
   Text, TextInput,
@@ -14,19 +13,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
 import updateProfile from '../redux/actions/profileUpdater';
-import { stylesPortrait, stylesLandscape } from '../styles/styles';
+import { style } from '../styles/styles';
 
 export default function EditProfil(props: any) : JSX.Element {
-  const isPortrait = () => {
-    const dim = Dimensions.get('screen');
-    return dim.height >= dim.width;
-  };
 
   // Redux //
   const data = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();
 
-  const [orientation, setOrientation] = useState(isPortrait() ? 'portrait' : 'landscape');
   const [firstName, setFirstName] = useState(data.firstName);
   const [lastName, setLastName] = useState(data.lastName);
   const [email, setEmail] = useState(data.email);
@@ -35,17 +29,6 @@ export default function EditProfil(props: any) : JSX.Element {
   const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
   const [bio, setBio] = useState(data.bio);
   const [imageProfil, setImageProfil] = useState(data.imageProfil);
-
-  const getStyle = () => {
-    if (orientation === 'landscape') {
-      return stylesLandscape;
-    }
-    return stylesPortrait;
-  };
-
-  Dimensions.addEventListener('change', () => {
-    setOrientation(isPortrait() ? 'portrait' : 'landscape');
-  });
 
   const updateInfos = () => {
     dispatch(
@@ -138,7 +121,7 @@ export default function EditProfil(props: any) : JSX.Element {
   };
 
   return (
-    <View style={getStyle().container}>
+    <View style={style.container}>
       <HeaderKlea
         title="Editer profil"
         handleMenu={() => props.navigation.goBack()}
@@ -147,20 +130,20 @@ export default function EditProfil(props: any) : JSX.Element {
         handleRightClick={() => updateInfos()}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={getStyle().body}>
+        <View style={style.body}>
           <View>
             {/* eslint-disable-next-line global-require */}
-            <Image source={imageProfil !== '' ? { uri: imageProfil } : require('../assets/example.png')} style={getStyle().avatar} />
-            <View style={getStyle().putEditIcon}>
-              <FeatherIcon name="camera" size={15} onPress={myAction} style={getStyle().infoIconEditPhoto} />
+            <Image source={imageProfil !== '' ? { uri: imageProfil } : require('../assets/example.png')} style={style.avatar} />
+            <View style={style.putEditIcon}>
+              <FeatherIcon name="camera" size={15} onPress={myAction} style={style.infoIconEditPhoto} />
             </View>
           </View>
-          <View style={getStyle().infoBoxEdit}>
-            <View style={getStyle().infoContainerNames}>
+          <View style={style.infoBoxEdit}>
+            <View style={style.infoContainerNames}>
               <View style={{ alignItems: 'stretch', paddingLeft: '2%', paddingRight: '2%' }}>
-                <Text style={getStyle().title_section}>Nom</Text>
+                <Text style={style.title_section}>Nom</Text>
                 <TextInput
-                  style={getStyle().input}
+                  style={style.input}
                   placeholder="Quel est ton nom ?"
                   placeholderTextColor="#9C9593"
                   autoCapitalize="none"
@@ -170,9 +153,9 @@ export default function EditProfil(props: any) : JSX.Element {
                 />
               </View>
               <View style={{ alignItems: 'stretch', paddingLeft: '2%', paddingRight: '2%' }}>
-                <Text style={getStyle().title_section}>Prénom</Text>
+                <Text style={style.title_section}>Prénom</Text>
                 <TextInput
-                  style={getStyle().input}
+                  style={style.input}
                   placeholder="Quel est ton prénom ?"
                   placeholderTextColor="#9C9593"
                   autoCapitalize="none"
@@ -182,16 +165,16 @@ export default function EditProfil(props: any) : JSX.Element {
                 />
               </View>
             </View>
-            <View style={getStyle().infoContainer}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/important-mail.png' }}
                 resizeMode="contain"
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
-                <Text style={getStyle().title_section}>Mail de contact</Text>
+                <Text style={style.title_section}>Mail de contact</Text>
                 <TextInput
-                  style={getStyle().input}
+                  style={style.input}
                   placeholder="Sur quelle mail peut-on te contacter ?"
                   placeholderTextColor="#9C9593"
                   autoCapitalize="none"
@@ -202,16 +185,16 @@ export default function EditProfil(props: any) : JSX.Element {
                 />
               </View>
             </View>
-            <View style={getStyle().infoContainer}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/material-rounded/24/000000/home.png' }}
                 resizeMode="contain"
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
-                <Text style={getStyle().title_section}>Adresse</Text>
+                <Text style={style.title_section}>Adresse</Text>
                 <TextInput
-                  style={getStyle().input}
+                  style={style.input}
                   placeholder="Où habites-tu ?"
                   placeholderTextColor="#9C9593"
                   autoCapitalize="none"
@@ -221,16 +204,16 @@ export default function EditProfil(props: any) : JSX.Element {
                 />
               </View>
             </View>
-            <View style={getStyle().infoContainer}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/gender.png' }}
                 resizeMode="contain"
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
-                <Text style={getStyle().title_section}>Genre</Text>
+                <Text style={style.title_section}>Genre</Text>
                 <TextInput
-                  style={getStyle().input}
+                  style={style.input}
                   placeholder="Homme/Femme/Autre"
                   placeholderTextColor="#9C9593"
                   autoCapitalize="none"
@@ -240,16 +223,16 @@ export default function EditProfil(props: any) : JSX.Element {
                 />
               </View>
             </View>
-            <View style={getStyle().infoContainer}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/android/24/000000/phone.png' }}
                 resizeMode="contain"
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
-                <Text style={getStyle().title_section}>Téléphone</Text>
+                <Text style={style.title_section}>Téléphone</Text>
                 <TextInput
-                  style={getStyle().input}
+                  style={style.input}
                   placeholder="Quel est ton numéro de téléphone ?"
                   placeholderTextColor="#9C9593"
                   autoCapitalize="none"
@@ -260,16 +243,16 @@ export default function EditProfil(props: any) : JSX.Element {
                 />
               </View>
             </View>
-            <View style={getStyle().infoContainer}>
+            <View style={style.infoContainer}>
               <Image
-                style={getStyle().infoIcon}
+                style={style.infoIcon}
                 source={{ uri: 'https://img.icons8.com/metro/26/000000/info.png' }}
                 resizeMode="contain"
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
-                <Text style={getStyle().title_section}>Informations complémentaires</Text>
+                <Text style={style.title_section}>Informations complémentaires</Text>
                 <TextInput
-                  style={getStyle().input}
+                  style={style.input}
                   placeholder="À propos de toi"
                   placeholderTextColor="#9C9593"
                   autoCapitalize="none"
