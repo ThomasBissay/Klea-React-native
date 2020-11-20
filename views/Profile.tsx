@@ -12,7 +12,6 @@ import { RootState } from '../redux/store';
 import { style } from '../styles/styles';
 
 export default function ProfileScreen(props: any): JSX.Element {
-
   const data = useSelector((state: RootState) => state.profile);
 
   return (

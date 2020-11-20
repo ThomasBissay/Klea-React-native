@@ -18,13 +18,13 @@ export default function MemoScreen(props: any): JSX.Element {
   const [modalVisible, setModalVisible] = useState(false);
   const [search, setSearch] = useState('');
   const [currMemo, setCurrMemo] = useState(
-    {
-      id: '',
-      title: '',
-      text: '',
-      tag: 'À faire',
-      tagColor: '#7badde',
-    },
+      {
+        id: '',
+        title: '',
+        text: '',
+        tag: 'À faire',
+        tagColor: '#7badde',
+      },
   );
 
   const handleSearch = () => {
@@ -108,7 +108,7 @@ export default function MemoScreen(props: any): JSX.Element {
 
   const delMemo = (id: string) => {
     dispatch(
-      deleteMemo(id),
+        deleteMemo(id),
     );
   };
 
@@ -118,13 +118,13 @@ export default function MemoScreen(props: any): JSX.Element {
         delMemo(currMemo.id);
       }
       dispatch(
-        addMemo({
-          id: guidGenerator(),
-          title: currMemo.title,
-          text: currMemo.text,
-          tag: currMemo.tag,
-          tagColor: currMemo.tagColor,
-        }),
+          addMemo({
+            id: guidGenerator(),
+            title: currMemo.title,
+            text: currMemo.text,
+            tag: currMemo.tag,
+            tagColor: currMemo.tagColor,
+          }),
       );
       clearCurrMemo();
       setModalVisible(false);
@@ -133,195 +133,196 @@ export default function MemoScreen(props: any): JSX.Element {
   };
 
   const modal = () => (
-    <Modal
-      animationType="slide"
-      transparent
-      visible={modalVisible}
-      onRequestClose={() => {
-        setModalVisible(false);
-        clearCurrMemo();
-      }}
-    >
-      <View style={style.modal}>
-        <View style={{ height: '10%', alignItems: 'center' }}>
-          <Text style={style.memoTitle}>Voir / Editer mémo</Text>
-        </View>
-        {/* Champ Titre */}
-        <View style={[style.modalView, { height: '10%' }]}>
-          <Text style={style.title_section}>Titre</Text>
-          <View style={[style.modalInputContainer, { height: '60%' }]}>
-            <TextInput
-              style={style.modalInput}
-              defaultValue={currMemo.title}
-              placeholder="Ajouter un titre"
-              autoCapitalize="none"
-              underlineColorAndroid="transparent"
-              onChangeText={(newTitle) => setCurrMemo({ ...currMemo, title: newTitle })}
-            />
-          </View>
-        </View>
-        {/* Selecteur Catégorie */}
-        <View style={[style.modalView, { height: '10%' }]}>
-          <Text style={style.title_section}>Catégorie</Text>
-          <View style={{
-            borderWidth: 0.8,
-            borderRadius: 5,
-            marginTop: '3%',
+      <Modal
+          animationType="slide"
+          transparent
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(false);
+            clearCurrMemo();
           }}
-          >
-            <Picker
-              selectedValue={currMemo.tagColor}
-              style={style.picker}
-              onValueChange={(itemValue) => setCurrMemo({
-                ...currMemo,
-                tag: handleLabel(itemValue),
-                tagColor: itemValue,
-              })}
+      >
+        <View style={style.modal}>
+          <View style={{ height: '10%', alignItems: 'center' }}>
+            <Text style={style.memoTitle}>Voir / Editer mémo</Text>
+          </View>
+          {/* Champ Titre */}
+          <View style={[style.modalView, { height: '10%' }]}>
+            <Text style={style.title_section}>Titre</Text>
+            <View style={[style.modalInputContainer, { height: '60%' }]}>
+              <TextInput
+                  style={style.modalInput}
+                  defaultValue={currMemo.title}
+                  placeholder="Ajouter un titre"
+                  autoCapitalize="none"
+                  underlineColorAndroid="transparent"
+                  onChangeText={(newTitle) => setCurrMemo({ ...currMemo, title: newTitle })}
+              />
+            </View>
+          </View>
+          {/* Selecteur Catégorie */}
+          <View style={[style.modalView, { height: '10%' }]}>
+            <Text style={style.title_section}>Catégorie</Text>
+            <View style={{
+              borderWidth: 0.8,
+              borderRadius: 5,
+              marginTop: '3%',
+            }}
             >
-              <Picker.Item label="À faire" value="#7badde" />
-              <Picker.Item label="Prioritaire" value="#fcaf83" />
-              <Picker.Item label="Urgent" value="#d4483b" />
-            </Picker>
+              <Picker
+                  selectedValue={currMemo.tagColor}
+                  style={style.picker}
+                  onValueChange={(itemValue) => setCurrMemo({
+                    ...currMemo,
+                    tag: handleLabel(itemValue),
+                    tagColor: itemValue,
+                  })}
+              >
+                <Picker.Item label="À faire" value="#7badde" />
+                <Picker.Item label="Prioritaire" value="#fcaf83" />
+                <Picker.Item label="Urgent" value="#d4483b" />
+              </Picker>
+            </View>
+          </View>
+          {/* Champ Contenu */}
+          <View style={[style.modalView, { height: '50%' }]}>
+            <Text style={style.title_section}>Contenu</Text>
+            <View style={[style.modalInputContainer, { height: '80%' }]}>
+              <TextInput
+                  style={style.modalInput}
+                  defaultValue={currMemo.text}
+                  placeholder="Ajouter des tâches, des informations ..."
+                  autoCapitalize="none"
+                  multiline
+                  underlineColorAndroid="transparent"
+                  onChangeText={(newText) => setCurrMemo({ ...currMemo, text: newText })}
+              />
+            </View>
+          </View>
+          <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+            <TouchableOpacity
+                style={style.modalButton}
+                onPress={() => saveMemo()}
+            >
+              <Text style={style.buttonText}>Valider</Text>
+            </TouchableOpacity>
           </View>
         </View>
-        {/* Champ Contenu */}
-        <View style={[style.modalView, { height: '50%' }]}>
-          <Text style={style.title_section}>Contenu</Text>
-          <View style={[style.modalInputContainer, { height: '80%' }]}>
-            <TextInput
-              style={style.modalInput}
-              defaultValue={currMemo.text}
-              placeholder="Ajouter des tâches, des informations ..."
-              autoCapitalize="none"
-              multiline
-              underlineColorAndroid="transparent"
-              onChangeText={(newText) => setCurrMemo({ ...currMemo, text: newText })}
-            />
-          </View>
-        </View>
-        <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
-          <TouchableOpacity
-            style={style.modalButton}
-            onPress={() => saveMemo()}
-          >
-            <Text style={style.buttonText}>Valider</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
+      </Modal>
   );
 
   return (
-    <View style={style.container}>
-      {/* Header */}
-      <HeaderKlea
-        title="Mémos"
-        handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
-        leftIconName="menu"
-        rightIconName="none"
-        handleRightClick={() => ''}
-      />
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={style.header}
-      >
-        <View style={style.searchBar}>
-          <Image
-            style={style.infoIcon}
-            source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/search.png' }}
-            resizeMode="contain"
-          />
-          <TextInput
-            style={style.searchInput}
-            placeholder="Rechercher par titre ..."
-            maxLength={40}
-            onChangeText={(text) => setSearch(text)}
-          />
-        </View>
-        <View style={style.filtersBar}>
-          <TouchableOpacity
-            style={[style.filterButton, filters.f1
-              ? { backgroundColor: '#7badde', borderColor: '#7badde' }
-              : { backgroundColor: 'white', borderColor: '#7badde' }]}
-            onPress={() => handleFilters('f1')}
-          >
-            <Text style={[style.buttonText, !filters.f1 ? { color: '#7badde' }
-              : { color: 'white' }]}
-            >
-              À faire
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[style.filterButton, filters.f2
-              ? { backgroundColor: '#fcaf83', borderColor: '#fcaf83' }
-              : { backgroundColor: 'white', borderColor: '#fcaf83' }]}
-            onPress={() => handleFilters('f2')}
-          >
-            <Text style={[style.buttonText, !filters.f2 ? { color: '#fcaf83' }
-              : { color: 'white' }]}
-            >
-              Prioritaire
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[style.filterButton, filters.f3
-              ? { backgroundColor: '#d4483b', borderColor: '#d4483b' }
-              : { backgroundColor: 'white', borderColor: '#d4483b' }]}
-            onPress={() => handleFilters('f3')}
-          >
-            <Text style={[style.buttonText, !filters.f3 ? { color: '#d4483b' }
-              : { color: 'white' }]}
-            >
-              Urgent
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-      <View style={style.body}>
-        <View>
-          <TouchableOpacity
-            style={style.memoButton}
-            onPress={() => { setModalVisible(true); }}
-          >
+      <View style={style.container}>
+        {/* Header */}
+        <HeaderKlea
+            title="Mémos"
+            handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
+            leftIconName="menu"
+            rightIconName="none"
+            handleRightClick={() => ''}
+        />
+        <KeyboardAvoidingView
+            behavior="padding"
+            style={style.header}
+        >
+          <View style={style.searchBar}>
             <Image
-              style={style.memoIcon}
-              source={{ uri: 'https://img.icons8.com/pastel-glyph/64/5d9683/plus--v1.png' }}
-              resizeMode="contain"
+                style={style.infoIcon}
+                source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/search.png' }}
+                resizeMode="contain"
             />
-            <Text style={{ margin: '4%', marginLeft: '22%', color: '#5d9683' }}>Nouveau mémo</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ flex: 1, marginTop: '2%' }}>
-          <FlatList
-            data={filteredData}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <TouchableOpacity style={style.memoItem} onPress={() => modifyMemo(item)}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={style.memoTitle}>{item.title}</Text>
-                  <TouchableOpacity
-                    style={style.memoDelete}
-                    onPress={() => delMemo(item.id)}
-                  >
-                    <Image
-                      style={{ flex: 1 }}
-                      source={{ uri: 'https://img.icons8.com/material-sharp/48/d4483b/delete.png' }}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
-                </View>
-                <Text style={style.memoText}>{item.text}</Text>
-                <TouchableOpacity
-                  style={[style.memoTag, { backgroundColor: item.tagColor }]}
-                >
-                  <Text style={{ color: 'white' }}>{item.tag}</Text>
-                </TouchableOpacity>
-              </TouchableOpacity>
-            )}
-          />
-          {modal()}
+            <TextInput
+                style={style.searchInput}
+                placeholder="Rechercher par titre ..."
+                maxLength={40}
+                onChangeText={(text) => setSearch(text)}
+            />
+          </View>
+          <View style={style.filtersBar}>
+            <TouchableOpacity
+                style={[style.filterButton, filters.f1
+                    ? { backgroundColor: '#7badde', borderColor: '#7badde' }
+                    : { backgroundColor: 'white', borderColor: '#7badde' }]}
+                onPress={() => handleFilters('f1')}
+            >
+              <Text style={[style.buttonText, !filters.f1 ? { color: '#7badde' }
+                  : { color: 'white' }]}
+              >
+                À faire
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={[style.filterButton, filters.f2
+                    ? { backgroundColor: '#fcaf83', borderColor: '#fcaf83' }
+                    : { backgroundColor: 'white', borderColor: '#fcaf83' }]}
+                onPress={() => handleFilters('f2')}
+            >
+              <Text style={[style.buttonText, !filters.f2 ? { color: '#fcaf83' }
+                  : { color: 'white' }]}
+              >
+                Prioritaire
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={[style.filterButton, filters.f3
+                    ? { backgroundColor: '#d4483b', borderColor: '#d4483b' }
+                    : { backgroundColor: 'white', borderColor: '#d4483b' }]}
+                onPress={() => handleFilters('f3')}
+            >
+              <Text style={[style.buttonText, !filters.f3 ? { color: '#d4483b' }
+                  : { color: 'white' }]}
+              >
+                Urgent
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
+        <View style={style.body}>
+          <View>
+            <TouchableOpacity
+                style={style.memoButton}
+                onPress={() => { setModalVisible(true); }}
+            >
+              <Image
+                  style={style.memoIcon}
+                  source={{ uri: 'https://img.icons8.com/pastel-glyph/64/5d9683/plus--v1.png' }}
+                  resizeMode="contain"
+              />
+              <Text style={{ margin: '4%', marginLeft: '22%', color: '#5d9683' }}>Nouveau mémo</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 1, marginTop: '2%' }}>
+            <FlatList
+                data={filteredData}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => (
+                    <TouchableOpacity style={style.memoItem} onPress={() => modifyMemo(item)}>
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={style.memoTitle}>{item.title}</Text>
+                        <TouchableOpacity
+                            style={style.memoDelete}
+                            onPress={() => delMemo(item.id)}
+                        >
+                          <Image
+                              style={{ flex: 1 }}
+                              source={{ uri: 'https://img.icons8.com/material-sharp/48/d4483b/delete.png' }}
+                              resizeMode="contain"
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <Text style={style.memoText}>{item.text}</Text>
+                      <TouchableOpacity
+                          style={[style.memoTag, { backgroundColor: item.tagColor }]}
+                      >
+                        <Text style={{ color: 'white' }}>{item.tag}</Text>
+                      </TouchableOpacity>
+                    </TouchableOpacity>
+                )}
+            />
+            {modal()}
+          </View>
         </View>
       </View>
-    </View>
   );
 }
+
