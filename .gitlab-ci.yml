@@ -22,4 +22,4 @@ jest-tests:
 eslint-test:
     stage: test
     script:
-        npm run lint
+        npm run lint-fix
