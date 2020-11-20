@@ -17,7 +17,7 @@ install_mobile:
 jest-tests:
   stage: test
   script:
-    - npm test
+    - npm run test
 
 eslint-test:
     stage: test
