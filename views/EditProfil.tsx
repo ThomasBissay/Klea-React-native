@@ -16,7 +16,6 @@ import updateProfile from '../redux/actions/profileUpdater';
 import { style } from '../styles/styles';
 
 export default function EditProfil(props: any) : JSX.Element {
-
   // Redux //
   const data = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();

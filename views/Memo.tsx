@@ -2,7 +2,7 @@ import { DrawerActions } from '@react-navigation/native';
 import {
   Text, View, Image, TouchableOpacity, TextInput, FlatList, Modal, Picker,
 } from 'react-native';
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderKlea from '../component/HeaderKlea';
 import { style } from '../styles/styles';
