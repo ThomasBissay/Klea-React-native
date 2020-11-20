@@ -15,10 +15,9 @@ export const style = StyleSheet.create({
     flex: 1,
   },
   searchBar: {
-    height: '35%',
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    marginTop: '2%',
+    marginTop: '4%',
     marginLeft: '4%',
     marginRight: '4%',
     borderRadius: 12,
@@ -27,11 +26,13 @@ export const style = StyleSheet.create({
     borderColor: '#eae5e5',
   },
   searchInput: {
-    marginRight: '4%',
+    margin: '1%',
   },
   filtersBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginTop: '2%',
+    marginBottom: '2%',
   },
   filterButton: {
     marginTop: '4%',
@@ -81,8 +82,6 @@ export const style = StyleSheet.create({
   },
   memoButton: {
     margin: '1%',
-    padding: '2%',
-    height: '80%',
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#5d9683',

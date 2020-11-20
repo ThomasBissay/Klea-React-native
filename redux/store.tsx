@@ -1,13 +1,13 @@
 import { createStore, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import counter from './reducers/counterReducer';
 import profileReducer from './reducers/ProfileReducer';
 import memosReducer from './reducers/MemoReducer';
 
 const persistConfig = {
   key: 'root',
-  storage,
+  storage: AsyncStorage,
 };
 
 const rootReducer = combineReducers({
@@ -22,5 +22,5 @@ export const store = createStore(persistedReducer);
 export const persistor = persistStore(store);
 
 // Pour permettre d'utiliser useSelector & useDispatch //
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof persistedReducer>;
 export default rootReducer;
