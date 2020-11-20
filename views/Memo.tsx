@@ -46,8 +46,8 @@ export default function MemoScreen(props: any): JSX.Element {
         default:
           break;
       }
-      if (tag) { return (memo.title.indexOf(search) > -1); }
-      return (-1);
+      if (!tag) return (0);
+      return (memo.title.indexOf(search) > -1);
     });
     setFilteredData(newData);
   };
