@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
 import { style } from '../styles/styles';
+import DefaultImg from '../assets/example.png';
 
 export default function ProfileScreen(props: any): JSX.Element {
   const data = useSelector((state: RootState) => state.profile);
@@ -26,8 +27,7 @@ export default function ProfileScreen(props: any): JSX.Element {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={style.body}>
           <View style={{ alignItems: 'center' }}>
-            {/* eslint-disable-next-line global-require */}
-            <Image source={data.imageProfil !== '' ? { uri: data.imageProfil } : require('../assets/example.png')} style={style.avatar} />
+            <Image source={data.imageProfil !== '' ? { uri: data.imageProfil } : DefaultImg} style={style.avatar} />
             <Text style={style.name}>
               {data.firstName !== '' ? `${data.firstName} ${data.lastName}` : 'Anonyme'}
               {' '}
