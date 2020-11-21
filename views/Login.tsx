@@ -84,6 +84,9 @@ export default function Login(props: any): JSX.Element {
       return (Alert.alert('Erreur', 'Veuillez remplir tout les champs'));
     }
     client.post('/user/auth', { Email: email, Password: password }).then((response) => {
+      // response.data.user.LastName
+      // response.data.user.FirtName
+      // response.data.user.Email
       if (response.status === 200) {
         props.navigation.navigate('Menu');
       }
