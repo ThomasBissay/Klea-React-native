@@ -14,6 +14,7 @@ import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
 import updateProfile from '../redux/actions/profileUpdater';
 import { style } from '../styles/styles';
+import DefaultImg from '../assets/example.png';
 
 export default function EditProfil(props: any) : JSX.Element {
   // Redux //
@@ -131,8 +132,7 @@ export default function EditProfil(props: any) : JSX.Element {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={style.body}>
           <View>
-            {/* eslint-disable-next-line global-require */}
-            <Image source={imageProfil !== '' ? { uri: imageProfil } : require('../assets/example.png')} style={style.avatar} />
+            <Image source={imageProfil !== '' ? { uri: imageProfil } : DefaultImg} style={style.avatar} />
             <View style={style.putEditIcon}>
               <FeatherIcon name="camera" size={15} onPress={myAction} style={style.infoIconEditPhoto} />
             </View>
