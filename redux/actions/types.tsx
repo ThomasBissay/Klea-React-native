@@ -28,7 +28,7 @@ export const ADD_MEMO = 'ADD_MEMO';
 export const DEL_MEMO = 'DEL_MEMO';
 
 export interface Memo {
-  id: number
+  id: string
   title: string
   text: string
   tag: string
@@ -47,7 +47,7 @@ interface AddMemoAction {
 interface DelMemoAction {
   type: typeof DEL_MEMO
   meta: {
-    id: number
+    id: string
   }
 }
 

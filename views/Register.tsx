@@ -73,7 +73,7 @@ export default function Login(props: any): JSX.Element {
       FirstName: firstName,
     }).then((response) => {
       if (response.status === 200) {
-        Alert.alert('Compte créé', 'Votre compte a bien été créer');
+        Alert.alert('Compte créé', 'Votre compte a bien été créé');
         props.navigation.navigate('Login');
       }
     }).catch(() => {

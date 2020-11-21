@@ -9,7 +9,7 @@ export function addMemo(newMemo: Memo): MemosActionsTypes {
   };
 }
 
-export function deleteMemo(id: number): MemosActionsTypes {
+export function deleteMemo(id: string): MemosActionsTypes {
   return {
     type: DEL_MEMO,
     meta: {
