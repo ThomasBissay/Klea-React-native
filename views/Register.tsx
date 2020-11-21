@@ -65,7 +65,13 @@ export default function Login(props: any): JSX.Element {
     if (password !== verifPassword) {
       return (Alert.alert('Erreur', 'Les mots de passe doivent être identiques.'));
     }
-    client.post('/user/', { Email: email, Pseudo: firstName, Password: password }).then((response) => {
+    client.post('/user/', {
+      Email: email,
+      Pseudo: firstName,
+      Password: password,
+      LastName: lastName,
+      FirstName: firstName,
+    }).then((response) => {
       if (response.status === 200) {
         Alert.alert('Compte créé', 'Votre compte a bien été créer');
         props.navigation.navigate('Login');
