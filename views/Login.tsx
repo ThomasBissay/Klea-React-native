@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {
   TouchableHighlight,
   Text,
@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { style } from '../styles/styles';
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../redux/store";
+import updateProfile from "../redux/actions/profileUpdater";
 
 const loginStyle = StyleSheet.create({
   icon: {
@@ -79,6 +82,25 @@ export default function Login(props: any): JSX.Element {
   });
   const image = require('../assets/images/loginBackground.png');
 
+  const data = useSelector((state: RootState) => state.profile);
+  const dispatch = useDispatch();
+
+  function saveData (newData: AxiosResponse) {
+    dispatch(
+        updateProfile({
+          firstName: newData.data.user.FirstName,
+          lastName: newData.data.user.LastName,
+          email: newData.data.user.Email,
+          gender: data.gender,
+          address: data.address,
+          phoneNumber: data.phoneNumber,
+          bio: data.bio,
+          imageProfil: data.imageProfil,
+          connected: true,
+        }),
+    );
+  }
+
   function login() {
     if (!email || !password) {
       return (Alert.alert('Erreur', 'Veuillez remplir tout les champs'));
@@ -88,6 +110,7 @@ export default function Login(props: any): JSX.Element {
       // response.data.user.FirtName
       // response.data.user.Email
       if (response.status === 200) {
+        saveData(response);
         props.navigation.navigate('Menu');
       }
     }).catch(() => {
@@ -97,29 +120,32 @@ export default function Login(props: any): JSX.Element {
   }
 
   return (
-    <View style={style.container}>
-      <ImageBackground source={image} style={loginStyle.image} imageStyle={{ opacity: 0.4 }}>
-        <View style={loginStyle.filterBackground}>
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Icon name="globe" type="font-awesome" iconStyle={loginStyle.icon} />
-            <Text style={loginStyle.iconText}>KLEA</Text>
-            <View style={loginStyle.inputContainer}>
-              <Text style={{ color: '#E4E9EE', fontSize: 16 }}>Email</Text>
-              <TextInput style={loginStyle.input} underlineColorAndroid="transparent" onChangeText={(value) => setEmail(value)} />
+      <View style={style.container}>
+        <ImageBackground source={image} style={loginStyle.image} imageStyle={{opacity: 0.4}}>
+          <View style={loginStyle.filterBackground}>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+              <Icon name="globe" type="font-awesome" iconStyle={loginStyle.icon}/>
+              <Text style={loginStyle.iconText}>KLEA</Text>
+              <View style={loginStyle.inputContainer}>
+                <Text style={{color: '#E4E9EE', fontSize: 16}}>Email</Text>
+                <TextInput style={loginStyle.input} underlineColorAndroid="transparent"
+                           onChangeText={(value) => setEmail(value)}/>
+              </View>
+              <View style={loginStyle.inputContainer}>
+                <Text style={{color: '#E4E9EE', fontSize: 16}}>Mot de passe</Text>
+                <TextInput style={loginStyle.input} secureTextEntry underlineColorAndroid="transparent"
+                           onChangeText={(value) => setPassword(value)}/>
+              </View>
+              <TouchableHighlight style={loginStyle.loginButton} onPress={() => login()}>
+                <Text style={{color: '#5D9783', fontSize: 16}}>Se connecter</Text>
+              </TouchableHighlight>
+              <TouchableHighlight style={loginStyle.registerButton}
+                                  onPress={() => props.navigation.navigate('Register')}>
+                <Text style={{color: '#E4E9EE', fontSize: 16}}>Créer un compte</Text>
+              </TouchableHighlight>
             </View>
-            <View style={loginStyle.inputContainer}>
-              <Text style={{ color: '#E4E9EE', fontSize: 16 }}>Mot de passe</Text>
-              <TextInput style={loginStyle.input} secureTextEntry underlineColorAndroid="transparent" onChangeText={(value) => setPassword(value)} />
-            </View>
-            <TouchableHighlight style={loginStyle.loginButton} onPress={() => login()}>
-              <Text style={{ color: '#5D9783', fontSize: 16 }}>Se connecter</Text>
-            </TouchableHighlight>
-            <TouchableHighlight style={loginStyle.registerButton} onPress={() => props.navigation.navigate('Register')}>
-              <Text style={{ color: '#E4E9EE', fontSize: 16 }}>Créer un compte</Text>
-            </TouchableHighlight>
           </View>
-        </View>
-      </ImageBackground>
-    </View>
+        </ImageBackground>
+      </View>
   );
 }

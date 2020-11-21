@@ -13,6 +13,7 @@ export interface ProfileState {
   phoneNumber: string
   bio: string
   imageProfil: string
+  connected: boolean
 }
 
 interface UpdateProfileAction {

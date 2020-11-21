@@ -40,6 +40,7 @@ export default function EditProfil(props: any) : JSX.Element {
         phoneNumber,
         bio,
         imageProfil,
+        connected,
       }),
     );
     props.navigation.goBack();
