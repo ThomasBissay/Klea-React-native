@@ -14,7 +14,7 @@ import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
 import { style } from '../styles/styles';
 import DefaultImg from '../assets/example.png';
-import { MenuNavigatorParamList, ProfileNavigatorParamList } from '../../../current/klea_react-native/utils/NavigationTypes';
+import { MenuNavigatorParamList, ProfileNavigatorParamList } from '../utils/NavigationTypes';
 
 type ProfileScreenNavigationProp = CompositeNavigationProp<
 DrawerNavigationProp<MenuNavigatorParamList, 'Profil'>,
