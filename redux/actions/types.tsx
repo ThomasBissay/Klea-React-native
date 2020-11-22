@@ -1,6 +1,3 @@
-export const INCREMENT_COUNT = 'INCREMENT_COUNT';
-export const DECREMENT_COUNT = 'DECREMENT_COUNT';
-
 // Profile //
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 
@@ -52,3 +49,41 @@ interface DelMemoAction {
 }
 
 export type MemosActionsTypes = AddMemoAction | DelMemoAction;
+
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DEL_EXPENSE = 'DEL_EXPENSE';
+export const MODIFY_EXPENSE = 'MODIFY_EXPENSE';
+
+export interface Expense {
+  id: number,
+  title: string,
+  price: number,
+  categorie: string,
+  date: string,
+}
+
+export interface ExpenseState {
+  expenses: Expense[]
+}
+
+interface AddExpenseAction {
+  type: typeof ADD_EXPENSE
+  payload: Expense
+}
+
+interface DelExpenseAction {
+  type: typeof DEL_EXPENSE
+  meta: {
+    id: number
+  }
+}
+
+interface ModifyExpenseAction {
+  type: typeof MODIFY_EXPENSE
+  payload: Expense
+  meta: {
+    id: number
+  }
+}
+
+export type ExpensesActionsTypes = AddExpenseAction | DelExpenseAction | ModifyExpenseAction;

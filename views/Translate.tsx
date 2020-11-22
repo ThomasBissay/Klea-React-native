@@ -1,9 +1,7 @@
 import { DrawerActions } from '@react-navigation/native';
 import { Text, View, StyleSheet } from 'react-native';
 import * as React from 'react';
-import { connect } from 'react-redux';
 import HeaderKlea from '../component/HeaderKlea';
-import { decrementCount, incrementCount } from '../redux/actions/incrementer';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -17,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function TranslateScreen(props: any) {
+function TranslateScreen(props: any): JSX.Element {
   return (
     <View style={styles.mainContainer}>
       <HeaderKlea
@@ -34,21 +32,4 @@ function TranslateScreen(props: any) {
   );
 }
 
-const mapStateProps = (state: any) => ({
-  counter: state.counter,
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-  increment: (counter: number) => {
-    dispatch(incrementCount(counter));
-  },
-
-  decrement: (counter: number) => {
-    dispatch(decrementCount(counter));
-  },
-});
-
-export default connect(
-  mapStateProps,
-  mapDispatchToProps,
-)(TranslateScreen);
+export default TranslateScreen;

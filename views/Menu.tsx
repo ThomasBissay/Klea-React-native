@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-community/async-storage';
+import { View } from 'react-native';
 import MemoScreen from './Memo';
 import ProfileScreen from './Profile';
 import TranslateScreen from './Translate';
@@ -19,14 +21,22 @@ export function Profile(): JSX.Element {
   );
 }
 
-export default function Menu() {
+function Logout(props : any) {
+  useEffect(() => {
+    props.navigation.navigate('Login');
+  }, []);
+
+  return (<View />);
+}
+
+export default function Menu(): JSX.Element {
   return (
     <Drawer.Navigator initialRouteName="Memo">
       <Drawer.Screen name="Mes Mémos" component={MemoScreen} />
       <Drawer.Screen name="Mon Profil" component={Profile} />
       <Drawer.Screen name="Mon Budget" component={BudgetScreen} />
       <Drawer.Screen name="Traduction" component={TranslateScreen} />
-      <Drawer.Screen name=" " component={EditProfil} />
+      <Drawer.Screen name="Se déconnecter" component={Logout} />
     </Drawer.Navigator>
 
   );
