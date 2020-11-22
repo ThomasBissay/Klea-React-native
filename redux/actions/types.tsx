@@ -57,6 +57,7 @@ export type MemosActionsTypes = AddMemoAction | DelMemoAction | ClearMemoAction;
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DEL_EXPENSE = 'DEL_EXPENSE';
 export const MODIFY_EXPENSE = 'MODIFY_EXPENSE';
+export const CLEAR_EXPENSE = 'CLEAR_EXPENSE';
 
 export interface Expense {
   id: number,
@@ -82,6 +83,10 @@ interface DelExpenseAction {
   }
 }
 
+interface ClearExpenseAction {
+  type: typeof CLEAR_EXPENSE
+}
+
 interface ModifyExpenseAction {
   type: typeof MODIFY_EXPENSE
   payload: Expense
@@ -90,5 +95,7 @@ interface ModifyExpenseAction {
   }
 }
 
-export type ExpensesActionsTypes = AddExpenseAction | DelExpenseAction | ModifyExpenseAction;
-
+export type ExpensesActionsTypes = AddExpenseAction
+| DelExpenseAction
+| ModifyExpenseAction
+| ClearExpenseAction;
