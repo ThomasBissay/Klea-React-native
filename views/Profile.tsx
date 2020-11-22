@@ -5,7 +5,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { DrawerActions, CompositeNavigationProp, NavigatorScreenParams } from '@react-navigation/native';
+import { DrawerActions, CompositeNavigationProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -13,20 +13,10 @@ import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
 import { style } from '../styles/styles';
 import DefaultImg from '../assets/example.png';
-
-type ProfileNavigatorParamList = {
-  ProfileScreen: undefined,
-  EditProfil: undefined
-};
-
-type AppNavigatorParamList = {
-  Memos: undefined,
-  Profil: NavigatorScreenParams<ProfileNavigatorParamList>,
-  Budget: undefined,
-};
+import { MenuNavigatorParamList, ProfileNavigatorParamList } from '../utils/NavigationTypes';
 
 type ProfileScreenNavigationProp = CompositeNavigationProp<
-DrawerNavigationProp<AppNavigatorParamList, 'Profil'>,
+DrawerNavigationProp<MenuNavigatorParamList, 'Profil'>,
 StackNavigationProp<ProfileNavigatorParamList>
 >;
 

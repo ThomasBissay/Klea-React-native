@@ -16,11 +16,7 @@ import { RootState } from '../redux/store';
 import updateProfile from '../redux/actions/profileUpdater';
 import { style } from '../styles/styles';
 import DefaultImg from '../assets/example.png';
-
-type ProfileNavigatorParamList = {
-  ProfileScreen: undefined,
-  EditProfil: undefined
-};
+import { ProfileNavigatorParamList } from '../utils/NavigationTypes';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
 ProfileNavigatorParamList,

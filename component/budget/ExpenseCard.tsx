@@ -5,7 +5,7 @@ import {
 import moment from 'moment';
 
 import categories from '../../helpers/categories';
-import ModalAddExpense from './ModalAddExpense';
+import ModalAddExpense from './modals/ModalAddExpense';
 
 const expenseCardStyle = StyleSheet.create({
   container: {

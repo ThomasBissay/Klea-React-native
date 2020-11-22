@@ -6,6 +6,10 @@ import {
   View,
 } from 'react-native';
 import axios from 'axios';
+import { CompositeNavigationProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { AppNavigatorParamList, MenuNavigatorParamList } from '../utils/NavigationTypes';
 
 const registerStyle = StyleSheet.create({
   container: {
@@ -34,7 +38,16 @@ const registerStyle = StyleSheet.create({
   },
 });
 
-export default function Login(props: any): JSX.Element {
+type RegisterScreenNavigationProp = CompositeNavigationProp<
+StackNavigationProp<AppNavigatorParamList, 'Register'>,
+DrawerNavigationProp<MenuNavigatorParamList>
+>;
+
+type PropsRegister = {
+  navigation: RegisterScreenNavigationProp;
+};
+
+export default function Register({ navigation }: PropsRegister): JSX.Element {
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
@@ -74,7 +87,7 @@ export default function Login(props: any): JSX.Element {
     }).then((response) => {
       if (response.status === 200) {
         Alert.alert('Compte créé', 'Votre compte a bien été créé');
-        props.navigation.navigate('Login');
+        navigation.navigate('Login');
       }
     }).catch(() => {
       Alert.alert('Erreur', 'Email ou mot de passe erroné');

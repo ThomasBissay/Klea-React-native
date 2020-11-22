@@ -11,10 +11,14 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from 'react-native-elements';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { CompositeNavigationProp } from '@react-navigation/native';
 import { RootState } from '../redux/store';
 import { style } from '../styles/styles';
 import updateProfile from '../redux/actions/profileUpdater';
 import loginBackground from '../assets/images/loginBackground.png';
+import { AppNavigatorParamList, MenuNavigatorParamList } from '../utils/NavigationTypes';
 
 const loginStyle = StyleSheet.create({
   icon: {
@@ -69,7 +73,16 @@ const loginStyle = StyleSheet.create({
   },
 });
 
-export default function Login(props: any): JSX.Element {
+type LoginScreenNavigationProp = CompositeNavigationProp<
+StackNavigationProp<AppNavigatorParamList, 'Login'>,
+DrawerNavigationProp<MenuNavigatorParamList>
+>;
+
+type PropsLogin = {
+  navigation: LoginScreenNavigationProp;
+};
+
+export default function Login({ navigation }: PropsLogin): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const client = axios.create({
@@ -108,7 +121,9 @@ export default function Login(props: any): JSX.Element {
     client.post('/user/auth', { Email: email, Password: password }).then((response) => {
       if (response.status === 200) {
         saveData(response);
-        props.navigation.navigate('Menu');
+        navigation.navigate('Menu', {
+          screen: 'Mémos',
+        });
       }
     }).catch(() => {
       Alert.alert('Erreur', 'Email ou mot de passe erroné');
@@ -118,7 +133,9 @@ export default function Login(props: any): JSX.Element {
 
   useEffect(() => {
     if (data.connected) {
-      props.navigation.navigate('Menu');
+      navigation.navigate('Menu', {
+        screen: 'Mémos',
+      });
     }
   }, []);
 
@@ -155,7 +172,7 @@ export default function Login(props: any): JSX.Element {
             </TouchableHighlight>
             <TouchableHighlight
               style={loginStyle.registerButton}
-              onPress={() => props.navigation.navigate('Register')}
+              onPress={() => navigation.navigate('Register')}
             >
               <Text style={{ color: '#E4E9EE', fontSize: 16 }}>Créer un compte</Text>
             </TouchableHighlight>

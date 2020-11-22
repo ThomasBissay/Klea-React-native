@@ -13,15 +13,10 @@ import { style } from '../styles/styles';
 import { RootState } from '../redux/store';
 import { addMemo, deleteMemo } from '../redux/actions/memoUpdater';
 import { Memo } from '../redux/actions/types';
-
-type AppNavigatorParamList = {
-  Memos: undefined,
-  Profil: undefined,
-  Budget: undefined,
-};
+import { MenuNavigatorParamList } from '../utils/NavigationTypes';
 
 type MemoScreenNavigationProp = DrawerNavigationProp<
-AppNavigatorParamList,
+MenuNavigatorParamList,
 'Memos'
 >;
 
