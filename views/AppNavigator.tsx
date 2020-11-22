@@ -6,6 +6,7 @@ import MemoScreen from './Memo';
 import ProfileScreen from './Profile';
 import BudgetScreen from './Budget';
 import EditProfil from './EditProfil';
+import MapScreen from "./Map";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -24,9 +25,10 @@ export default function AppNavigator(): JSX.Element {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Memo">
         <Drawer.Screen name="Mes Mémos" component={MemoScreen} />
-        <Drawer.Screen name="Mon Profil" component={Profile} />
-        <Drawer.Screen name="Mon Budget" component={BudgetScreen} />
-        <Drawer.Screen name=" " component={EditProfil} />
+          <Drawer.Screen name="Mon Profil" component={Profile} />
+          <Drawer.Screen name="Mon Budget" component={BudgetScreen} />
+          <Drawer.Screen name="Ma Carte" component={MapScreen} />
+          <Drawer.Screen name=" " component={EditProfil} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
