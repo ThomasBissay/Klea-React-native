@@ -36,16 +36,15 @@ type AppNavigatorParamList = {
   Memos: undefined,
   Profil: undefined,
   Budget: undefined,
-  Traduction: undefined
 };
 
-type ProfileScreenNavigationProp = DrawerNavigationProp<
+type BudgetScreenNavigationProp = DrawerNavigationProp<
 AppNavigatorParamList,
 'Budget'
 >;
 
 type PropsBudget = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: BudgetScreenNavigationProp;
 };
 
 export default function BudgetScreen({ navigation }: PropsBudget): JSX.Element {

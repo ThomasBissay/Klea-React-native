@@ -4,10 +4,9 @@ import {
   Left,
   Button,
   Body,
-  Title,
   Right,
 } from 'native-base';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 interface Props{
@@ -48,7 +47,7 @@ function HeaderKlea({
         </Button>
       </Left>
       <Body style={{ flex: 2 }}>
-        <Title style={{ alignSelf: 'center' }}>{title}</Title>
+        <Text style={{ alignSelf: 'center', color: 'white', fontSize: 19 }}>{title}</Text>
       </Body>
       <Right style={{ flex: 1 }}>
         {displayRight()}

@@ -14,6 +14,7 @@ import { Icon } from 'react-native-elements';
 import { RootState } from '../redux/store';
 import { style } from '../styles/styles';
 import updateProfile from '../redux/actions/profileUpdater';
+import loginBackground from '../assets/images/loginBackground.png';
 
 const loginStyle = StyleSheet.create({
   icon: {
@@ -80,7 +81,6 @@ export default function Login(props: any): JSX.Element {
       Bearer: '',
     },
   });
-  const image = require('../assets/images/loginBackground.png');
 
   const data = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();
@@ -124,7 +124,11 @@ export default function Login(props: any): JSX.Element {
 
   return (
     <View style={style.container}>
-      <ImageBackground source={image} style={loginStyle.image} imageStyle={{ opacity: 0.4 }}>
+      <ImageBackground
+        source={loginBackground}
+        style={loginStyle.image}
+        imageStyle={{ opacity: 0.4 }}
+      >
         <View style={loginStyle.filterBackground}>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Icon name="globe" type="font-awesome" iconStyle={loginStyle.icon} />

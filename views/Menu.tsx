@@ -5,12 +5,12 @@ import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import MemoScreen from './Memo';
 import ProfileScreen from './Profile';
-import TranslateScreen from './Translate';
 import BudgetScreen from './Budget';
 import EditProfil from './EditProfil';
 import SideMenu from '../component/SideMenu';
 import updateProfile from '../redux/actions/profileUpdater';
-import { deleteMemo } from '../redux/actions/memoUpdater';
+import { clearMemo } from '../redux/actions/memoUpdater';
+import { clearExpense } from '../redux/actions/expenseUpdater';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -41,9 +41,8 @@ function Logout(props : any) {
         connected: false,
       }),
     );
-    dispatch(
-      clearMemo(),
-    );
+    dispatch(clearExpense());
+    dispatch(clearMemo());
   }
 
   useEffect(() => {
@@ -56,13 +55,11 @@ function Logout(props : any) {
 
 export default function Menu(): JSX.Element {
   return (
-    <Drawer.Navigator initialRouteName="Memo" drawerContent={(props) => <SideMenu {...props} />}>
+    <Drawer.Navigator initialRouteName="Memo" drawerContent={SideMenu}>
       <Drawer.Screen name="Mes Mémos" component={MemoScreen} />
       <Drawer.Screen name="Mon Profil" component={Profile} />
       <Drawer.Screen name="Mon Budget" component={BudgetScreen} />
-      <Drawer.Screen name="Traduction" component={TranslateScreen} />
       <Drawer.Screen name="Se déconnecter" component={Logout} />
     </Drawer.Navigator>
-
   );
 }

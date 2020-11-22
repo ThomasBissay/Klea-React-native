@@ -68,11 +68,6 @@ export default function SideMenu(props : any) {
             label="Mon Budget"
             onPress={() => props.navigation.navigate('Mon Budget')}
           />
-          <DrawerItem
-            icon={() => (<Icon color="#41675a" type="font-awesome" name="language" />)}
-            label="Traduction"
-            onPress={() => props.navigation.navigate('Traduction')}
-          />
         </View>
       </DrawerContentScrollView>
       <View style={styles.footerContainer}>
