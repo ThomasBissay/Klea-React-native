@@ -13,17 +13,29 @@ Après s'être inscrit, plusieurs fonctionnalités sont disponibles:
 
 Cette solution s'adresse aussi bien aux backpackers aguerris, qu'aux touristes effectuants leurs premières excursions.
 
-## Installation
+## Utilisation avec expo
+
+
+- Installation et utilisation en local
 
 ```bash
 npm install
 ```
-
-## Utilisation
-
 ```bash
 npm start
 ```
+
+Une fois ces 2 commandes executé, une page présentant un code QR s'affiche. Il suffit de scanner ce code QR avec l'application Expo pour utiliser le projet.
+
+- Récupérer le projet en ligne
+
+Il est possible de lancer le projet sur son téléphone depuis grâce au code QR présent sur cette page-ci : https://exp.host/@louen/klea_react-native. En le scannant avec l'application mobile d'Expo, Klea s'ouvre.
+
+
+## Installer l'apk
+
+Il est possible d'installer l'APK de Klea sur son téléphone en la téléchargeant depuis ce lien: https://expo.io/artifacts/295c7cc9-586d-4d07-bd29-125165a70df3.
+
 
 ## Linter (eslint-airbnb)
 
