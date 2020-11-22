@@ -22,6 +22,7 @@ export type ProfileActionsTypes = UpdateProfileAction;
 // Mémo //
 export const ADD_MEMO = 'ADD_MEMO';
 export const DEL_MEMO = 'DEL_MEMO';
+export const CLEAR_MEMO = 'CLEAR_MEMO';
 
 export interface Memo {
   id: string
@@ -47,7 +48,11 @@ interface DelMemoAction {
   }
 }
 
-export type MemosActionsTypes = AddMemoAction | DelMemoAction;
+interface ClearMemoAction {
+  type: typeof CLEAR_MEMO
+}
+
+export type MemosActionsTypes = AddMemoAction | DelMemoAction | ClearMemoAction;
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DEL_EXPENSE = 'DEL_EXPENSE';
@@ -86,3 +91,4 @@ interface ModifyExpenseAction {
 }
 
 export type ExpensesActionsTypes = AddExpenseAction | DelExpenseAction | ModifyExpenseAction;
+
