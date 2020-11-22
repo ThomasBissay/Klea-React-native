@@ -33,10 +33,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const ModalGlobalBudget = (props: any) => {
-  const { modalState, budget } = props;
+interface PropsModalGlobalBudget {
+  modalState: boolean,
+  budget: number,
+  closeModal: () => void,
+  changeBudget: (newBudget: number) => void
+}
 
-  const [newBudget, setBudget] = useState<string>(budget);
+const ModalGlobalBudget = ({
+  modalState, budget, closeModal, changeBudget,
+}: PropsModalGlobalBudget): JSX.Element => {
+  const [newBudget, setBudget] = useState<string>(budget.toString());
 
   return (
     <Modal
@@ -47,7 +54,7 @@ const ModalGlobalBudget = (props: any) => {
       <View style={styles.transparentBackground}>
         <View style={styles.container}>
           <Text style={styles.modalTitle}>Changer le budget de départ</Text>
-          <Text>Modifie ici le budget total que tu as décidé d'allouer à ton voyage.</Text>
+          <Text>Modifie ici le budget total que tu as décidé d&apos;allouer à ton voyage.</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <ModalInput
               onChangeText={(text: string) => setBudget(text)}
@@ -58,10 +65,10 @@ const ModalGlobalBudget = (props: any) => {
             <Text style={{ marginHorizontal: 15, fontSize: 20 }}>€</Text>
           </View>
           <View style={{ flexDirection: 'row', marginLeft: 'auto', marginTop: 10 }}>
-            <TouchableOpacity onPress={() => { props.closeModal(!modalState); }}>
+            <TouchableOpacity onPress={() => { closeModal(); }}>
               <Text style={styles.buttonTextStyle}>Annuler</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { props.changeBudget(newBudget); }}>
+            <TouchableOpacity onPress={() => { changeBudget(+newBudget); }}>
               <Text style={styles.buttonTextStyle}>Modifier</Text>
             </TouchableOpacity>
           </View>

@@ -10,9 +10,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const ModalInput = (props: any) => (
+interface PropsModalInput {
+  onChangeText: (text: string) => void,
+  value: string,
+  keyboardType: 'numeric' | 'default',
+  placeholder: string
+}
+
+const ModalInput = ({
+  onChangeText, value, keyboardType, placeholder,
+}: PropsModalInput): JSX.Element => (
   <View style={styles.modalInput}>
-    <TextInput {...props} />
+    <TextInput
+      onChangeText={onChangeText}
+      value={value}
+      keyboardType={keyboardType}
+      placeholder={placeholder}
+    />
   </View>
 );
 

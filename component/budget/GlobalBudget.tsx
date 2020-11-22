@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  Text, View, TouchableOpacity, StyleSheet,
+} from 'react-native';
 import ModalGlobalBudget from './ModalGlobalBudget';
 
 const styles = StyleSheet.create({
@@ -20,7 +22,7 @@ const styles = StyleSheet.create({
   textTitle: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: '#9A9A9A'
+    color: '#9A9A9A',
   },
   budgetLeft: {
     fontSize: 30,
@@ -34,16 +36,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const GlobalBudget = (props: any) => {
+interface GlobalBudgetProps {
+  budget: number,
+  budgetLeft: () => number,
+  changeBudget: (budget: number) => void
+}
+
+const GlobalBudget = ({ budget, budgetLeft, changeBudget }: GlobalBudgetProps): JSX.Element => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const { budget, budgetLeft } = props;
 
   const closeModal = () => {
     setModalVisible(false);
   };
 
-  const changeBudget = (newBudget: number) => {
-    props.changeBudget(newBudget);
+  const updateBudget = (newBudget: number) => {
+    changeBudget(newBudget);
     closeModal();
   };
 
@@ -52,7 +59,7 @@ const GlobalBudget = (props: any) => {
       <ModalGlobalBudget
         modalState={modalVisible}
         closeModal={closeModal}
-        changeBudget={changeBudget}
+        changeBudget={updateBudget}
         budget={budget}
       />
       <Text style={styles.textTitle}>Budget Restant</Text>

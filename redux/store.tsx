@@ -13,7 +13,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   profile: profileReducer,
   memos: memosReducer,
-  expenses: expensesReducer
+  expenses: expensesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

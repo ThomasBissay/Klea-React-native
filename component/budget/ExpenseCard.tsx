@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import React, { useState } from 'react';
+import {
+  View, Text, StyleSheet, TouchableOpacity,
+} from 'react-native';
 import moment from 'moment';
 
 import categories from '../../helpers/categories';
-import {useDispatch} from "react-redux";
-import {deleteExpense} from "../../redux/actions/expenseUpdater";
-import ModalAddExpense from "./ModalAddExpense";
+import ModalAddExpense from './ModalAddExpense';
 
 const expenseCardStyle = StyleSheet.create({
   container: {
@@ -51,10 +50,9 @@ interface PropsInterface {
   expense: ExpenseInterface,
 }
 
-const ExpenseCard = ({ expense } : PropsInterface) => {
+const ExpenseCard = ({ expense } : PropsInterface): JSX.Element => {
   const categorieInfo = categories.filter((elem) => elem.name === expense.categorie);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const dispatch = useDispatch();
 
   function openModal() {
     setModalVisible(true);
@@ -64,13 +62,9 @@ const ExpenseCard = ({ expense } : PropsInterface) => {
     setModalVisible(false);
   }
 
-  function deleteElement() {
-    dispatch(deleteExpense(expense.id));
-  }
-
   return (
     <TouchableOpacity style={expenseCardStyle.container} onPress={openModal}>
-      <ModalAddExpense modalState={modalVisible} modalType="Modify" closeModal={closeModal} expense={expense}/>
+      <ModalAddExpense modalState={modalVisible} modalType="Modify" closeModal={closeModal} expense={expense} />
       <View style={{
         width: 40,
         height: 40,
