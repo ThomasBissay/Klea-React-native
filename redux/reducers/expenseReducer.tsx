@@ -76,6 +76,10 @@ export default function expensesReducer(state = initialState,
           (expense) => expense.id !== action.meta.id,
         ),
       };
+    case 'CLEAR_EXPENSE':
+      return {
+        expenses: [],
+      };
     default:
       return state;
   }

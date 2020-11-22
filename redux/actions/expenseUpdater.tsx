@@ -1,5 +1,5 @@
 import {
-  ADD_EXPENSE, DEL_EXPENSE, Expense, ExpensesActionsTypes, MODIFY_EXPENSE,
+  ADD_EXPENSE, CLEAR_EXPENSE, DEL_EXPENSE, Expense, ExpensesActionsTypes, MODIFY_EXPENSE,
 } from './types';
 
 export function addExpense(newEpense: Expense): ExpensesActionsTypes {
@@ -25,5 +25,11 @@ export function modifyExpense(id: number, newExpense: Expense): ExpensesActionsT
     meta: {
       id,
     },
+  };
+}
+
+export function clearExpense(): ExpensesActionsTypes {
+  return {
+    type: CLEAR_EXPENSE,
   };
 }

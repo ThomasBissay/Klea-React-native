@@ -10,13 +10,28 @@ import * as Permissions from 'expo-permissions';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import AlertAsync from 'react-native-alert-async';
 import { useSelector, useDispatch } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
 import updateProfile from '../redux/actions/profileUpdater';
 import { style } from '../styles/styles';
 import DefaultImg from '../assets/example.png';
 
-export default function EditProfil(props: any) : JSX.Element {
+type ProfileNavigatorParamList = {
+  ProfileScreen: undefined,
+  EditProfil: undefined
+};
+
+type ProfileScreenNavigationProp = StackNavigationProp<
+ProfileNavigatorParamList,
+'EditProfil'
+>;
+
+type PropsEditProfil = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Element {
   // Redux //
   const data = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();
@@ -43,7 +58,7 @@ export default function EditProfil(props: any) : JSX.Element {
         imageProfil,
       }),
     );
-    props.navigation.goBack();
+    navigation.goBack();
   };
 
   // Photo par défaut //
@@ -124,7 +139,7 @@ export default function EditProfil(props: any) : JSX.Element {
     <View style={style.container}>
       <HeaderKlea
         title="Editer profil"
-        handleMenu={() => props.navigation.goBack()}
+        handleMenu={() => navigation.goBack()}
         leftIconName="close"
         rightIconName="check"
         handleRightClick={() => updateInfos()}

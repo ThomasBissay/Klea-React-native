@@ -7,13 +7,29 @@ import {
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import HeaderKlea from '../component/HeaderKlea';
 import { style } from '../styles/styles';
 import { RootState } from '../redux/store';
 import { addMemo, deleteMemo } from '../redux/actions/memoUpdater';
 import { Memo } from '../redux/actions/types';
 
-export default function MemoScreen(props: any): JSX.Element {
+type AppNavigatorParamList = {
+  Memos: undefined,
+  Profil: undefined,
+  Budget: undefined,
+};
+
+type MemoScreenNavigationProp = DrawerNavigationProp<
+AppNavigatorParamList,
+'Memos'
+>;
+
+type PropsMemo = {
+  navigation: MemoScreenNavigationProp;
+};
+
+export default function MemoScreen({ navigation }: PropsMemo): JSX.Element {
   const dataMemo = useSelector((state: RootState) => state.memos);
   const dispatch = useDispatch();
   const [filters, setFilters] = useState({ f1: true, f2: true, f3: true });
@@ -219,7 +235,7 @@ export default function MemoScreen(props: any): JSX.Element {
       {/* Header */}
       <HeaderKlea
         title="Mémos"
-        handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
+        handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}
         leftIconName="menu"
         rightIconName="none"
         handleRightClick={() => ''}

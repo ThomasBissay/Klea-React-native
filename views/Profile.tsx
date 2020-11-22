@@ -5,24 +5,46 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { DrawerActions } from '@react-navigation/native';
+import { DrawerActions, CompositeNavigationProp, NavigatorScreenParams } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
 import { style } from '../styles/styles';
 import DefaultImg from '../assets/example.png';
 
-export default function ProfileScreen(props: any): JSX.Element {
+type ProfileNavigatorParamList = {
+  ProfileScreen: undefined,
+  EditProfil: undefined
+};
+
+type AppNavigatorParamList = {
+  Memos: undefined,
+  Profil: NavigatorScreenParams<ProfileNavigatorParamList>,
+  Budget: undefined,
+};
+
+type ProfileScreenNavigationProp = CompositeNavigationProp<
+DrawerNavigationProp<AppNavigatorParamList, 'Profil'>,
+StackNavigationProp<ProfileNavigatorParamList>
+>;
+
+type PropsProfil = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+export default function ProfileScreen({ navigation }: PropsProfil): JSX.Element {
   const data = useSelector((state: RootState) => state.profile);
 
   return (
     <View style={style.container}>
       <HeaderKlea
         title="Profil"
-        handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
+        handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}
         leftIconName="menu"
         rightIconName="edit"
-        handleRightClick={() => props.navigation.navigate('EditProfil')}
+        handleRightClick={() => navigation.navigate('EditProfil')}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={style.body}>
