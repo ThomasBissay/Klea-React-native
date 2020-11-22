@@ -44,6 +44,7 @@ export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Elemen
   const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
   const [bio, setBio] = useState(data.bio);
   const [imageProfil, setImageProfil] = useState(data.imageProfil);
+  const [connected] = useState(data.connected);
 
   const updateInfos = () => {
     dispatch(
@@ -56,6 +57,7 @@ export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Elemen
         phoneNumber,
         bio,
         imageProfil,
+        connected,
       }),
     );
     navigation.goBack();
