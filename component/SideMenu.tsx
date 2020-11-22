@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function SideMenu(props : any) {
+export default function SideMenu(props : any): JSX.Element {
   return (
     <View style={{ flex: 1, backgroundColor: '#e4eaec' }}>
       <View style={{
