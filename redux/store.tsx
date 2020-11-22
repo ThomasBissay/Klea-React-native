@@ -1,7 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
-import counter from './reducers/counterReducer';
 import profileReducer from './reducers/ProfileReducer';
 import memosReducer from './reducers/MemoReducer';
 import expensesReducer from './reducers/expenseReducer';
@@ -12,7 +11,6 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  counter,
   profile: profileReducer,
   memos: memosReducer,
   expenses: expensesReducer

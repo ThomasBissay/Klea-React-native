@@ -98,4 +98,5 @@ export default function BudgetScreen(props: any) {
       </ScrollView>
     </View>
   );
+
 }
