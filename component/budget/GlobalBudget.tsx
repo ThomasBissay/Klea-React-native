@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Text, View, TouchableOpacity, StyleSheet,
 } from 'react-native';
-import ModalGlobalBudget from './ModalGlobalBudget';
+import ModalGlobalBudget from './modals/ModalGlobalBudget';
 
 const styles = StyleSheet.create({
   container: {

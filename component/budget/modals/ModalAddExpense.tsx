@@ -3,14 +3,14 @@ import {
   View, Text, Modal, TouchableOpacity, StyleSheet, Platform,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import moment from 'moment';
 
 import { useDispatch } from 'react-redux';
 import ModalInput from './ModalInput';
-import { addExpense, deleteExpense, modifyExpense } from '../../redux/actions/expenseUpdater';
-import { Expense } from '../../redux/actions/types';
+import { addExpense, deleteExpense, modifyExpense } from '../../../redux/actions/expenseUpdater';
+import { Expense } from '../../../redux/actions/types';
 
 const styles = StyleSheet.create({
   container: {

@@ -1,13 +1,20 @@
-import {NavigatorScreenParams} from "@react-navigation/native";
+import { NavigatorScreenParams } from '@react-navigation/native';
 
 export type ProfileNavigatorParamList = {
-    ProfileScreen: undefined,
-    EditProfil: undefined
+  ProfileScreen: undefined,
+  EditProfil: undefined
+};
+
+export type MenuNavigatorParamList = {
+  Mémos: undefined,
+  Profil: NavigatorScreenParams<ProfileNavigatorParamList>,
+  Budget: undefined,
+  Map: undefined,
+  Logout: undefined
 };
 
 export type AppNavigatorParamList = {
-    Memos: undefined,
-    Profil: NavigatorScreenParams<ProfileNavigatorParamList>,
-    Budget: undefined,
-    Map: undefined
+  Login: undefined,
+  Register: undefined,
+  Menu: NavigatorScreenParams<MenuNavigatorParamList>
 };

@@ -16,11 +16,7 @@ import { RootState } from '../redux/store';
 import updateProfile from '../redux/actions/profileUpdater';
 import { style } from '../styles/styles';
 import DefaultImg from '../assets/example.png';
-
-type ProfileNavigatorParamList = {
-  ProfileScreen: undefined,
-  EditProfil: undefined
-};
+import { ProfileNavigatorParamList } from '../utils/NavigationTypes';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
 ProfileNavigatorParamList,
@@ -44,6 +40,7 @@ export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Elemen
   const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
   const [bio, setBio] = useState(data.bio);
   const [imageProfil, setImageProfil] = useState(data.imageProfil);
+  const [connected] = useState(data.connected);
 
   const updateInfos = () => {
     dispatch(
@@ -56,6 +53,7 @@ export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Elemen
         phoneNumber,
         bio,
         imageProfil,
+        connected,
       }),
     );
     navigation.goBack();

@@ -8,11 +8,12 @@ import 'moment/locale/fr';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import HeaderKlea from '../component/HeaderKlea';
 import ExpenseCard from '../component/budget/ExpenseCard';
-import ModalAddExpense from '../component/budget/ModalAddExpense';
+import ModalAddExpense from '../component/budget/modals/ModalAddExpense';
 import CategoriesCard from '../component/budget/CategoriesCard';
 import GlobalBudget from '../component/budget/GlobalBudget';
 import { RootState } from '../redux/store';
 import { Expense } from '../redux/actions/types';
+import { MenuNavigatorParamList } from '../utils/NavigationTypes';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -32,14 +33,8 @@ const styles = StyleSheet.create({
   },
 });
 
-type AppNavigatorParamList = {
-  Memos: undefined,
-  Profil: undefined,
-  Budget: undefined,
-};
-
 type BudgetScreenNavigationProp = DrawerNavigationProp<
-AppNavigatorParamList,
+MenuNavigatorParamList,
 'Budget'
 >;
 
