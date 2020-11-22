@@ -29,6 +29,7 @@ export default function EditProfil(props: any) : JSX.Element {
   const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
   const [bio, setBio] = useState(data.bio);
   const [imageProfil, setImageProfil] = useState(data.imageProfil);
+  const [connected] = useState(data.connected);
 
   const updateInfos = () => {
     dispatch(
