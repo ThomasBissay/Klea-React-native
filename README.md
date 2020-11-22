@@ -34,7 +34,7 @@ Il est possible de lancer le projet sur son téléphone depuis grâce au code QR
 
 ## Installer l'apk
 
-Il est possible d'installer l'APK de Klea sur son téléphone en la téléchargeant depuis ce lien: https://expo.io/artifacts/295c7cc9-586d-4d07-bd29-125165a70df3.
+Il est possible d'installer l'APK de Klea sur son téléphone en la téléchargeant depuis ce lien: https://expo.io/artifacts/d55e56bb-0534-48f7-9295-baa091d8630c.
 
 
 ## Linter (eslint-airbnb)
