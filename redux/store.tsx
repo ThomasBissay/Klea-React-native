@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import profileReducer from './reducers/ProfileReducer';
 import memosReducer from './reducers/MemoReducer';
+import expensesReducer from './reducers/expenseReducer';
 
 const persistConfig = {
   key: 'root',
@@ -12,6 +13,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   profile: profileReducer,
   memos: memosReducer,
+  expenses: expensesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
