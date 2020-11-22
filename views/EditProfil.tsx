@@ -11,6 +11,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import AlertAsync from 'react-native-alert-async';
 import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
 import updateProfile from '../redux/actions/profileUpdater';
@@ -178,16 +179,16 @@ export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Elemen
               </View>
             </View>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/important-mail.png' }}
-                resizeMode="contain"
+              <Icon
+                name="at"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
                 <Text style={style.title_section}>Mail de contact</Text>
                 <TextInput
                   style={style.input}
-                  placeholder="Sur quelle mail peut-on te contacter ?"
+                  placeholder="Sur quelle adresse mail peut-on te contacter ?"
                   placeholderTextColor="#9C9593"
                   autoCapitalize="none"
                   defaultValue={email}
@@ -198,10 +199,10 @@ export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Elemen
               </View>
             </View>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/material-rounded/24/000000/home.png' }}
-                resizeMode="contain"
+              <Icon
+                name="city"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
                 <Text style={style.title_section}>Adresse</Text>
@@ -217,10 +218,10 @@ export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Elemen
               </View>
             </View>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/gender.png' }}
-                resizeMode="contain"
+              <Icon
+                name="gender-male-female"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
                 <Text style={style.title_section}>Genre</Text>
@@ -236,10 +237,10 @@ export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Elemen
               </View>
             </View>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/android/24/000000/phone.png' }}
-                resizeMode="contain"
+              <Icon
+                name="cellphone"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
                 <Text style={style.title_section}>Téléphone</Text>
@@ -256,10 +257,10 @@ export default function EditProfil({ navigation }: PropsEditProfil) : JSX.Elemen
               </View>
             </View>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/metro/26/000000/info.png' }}
-                resizeMode="contain"
+              <Icon
+                name="information-outline"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <View style={{ alignItems: 'flex-start', flex: 1 }}>
                 <Text style={style.title_section}>Informations complémentaires</Text>
