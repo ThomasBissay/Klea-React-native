@@ -96,7 +96,7 @@ const ModalAddExpense = ({ modalState, modalType, expense, closeModal }: PropsMo
 
   useEffect(() => {
     if (modalState) {
-      if (modalType === 'Modify') {:wq*:wq:wq!wq
+      if (modalType === 'Modify') {
 
         setTitle(expense.title);
         setPrice(expense.price.toString());
