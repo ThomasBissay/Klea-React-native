@@ -9,6 +9,7 @@ const initialState: ProfileState = {
   phoneNumber: '',
   bio: '',
   imageProfil: '',
+  connected: false,
 };
 
 export default function profileReducer(state = initialState,

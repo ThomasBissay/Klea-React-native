@@ -1,6 +1,3 @@
-export const INCREMENT_COUNT = 'INCREMENT_COUNT';
-export const DECREMENT_COUNT = 'DECREMENT_COUNT';
-
 // Profile //
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 
@@ -13,6 +10,7 @@ export interface ProfileState {
   phoneNumber: string
   bio: string
   imageProfil: string
+  connected: boolean
 }
 
 interface UpdateProfileAction {
@@ -25,9 +23,10 @@ export type ProfileActionsTypes = UpdateProfileAction;
 // Mémo //
 export const ADD_MEMO = 'ADD_MEMO';
 export const DEL_MEMO = 'DEL_MEMO';
+export const CLEAR_MEMO = 'CLEAR_MEMO';
 
 export interface Memo {
-  id: number
+  id: string
   title: string
   text: string
   tag: string
@@ -46,8 +45,58 @@ interface AddMemoAction {
 interface DelMemoAction {
   type: typeof DEL_MEMO
   meta: {
+    id: string
+  }
+}
+
+interface ClearMemoAction {
+  type: typeof CLEAR_MEMO
+}
+
+export type MemosActionsTypes = AddMemoAction | DelMemoAction | ClearMemoAction;
+
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DEL_EXPENSE = 'DEL_EXPENSE';
+export const MODIFY_EXPENSE = 'MODIFY_EXPENSE';
+export const CLEAR_EXPENSE = 'CLEAR_EXPENSE';
+
+export interface Expense {
+  id: number,
+  title: string,
+  price: number,
+  categorie: string,
+  date: string,
+}
+
+export interface ExpenseState {
+  expenses: Expense[]
+}
+
+interface AddExpenseAction {
+  type: typeof ADD_EXPENSE
+  payload: Expense
+}
+
+interface DelExpenseAction {
+  type: typeof DEL_EXPENSE
+  meta: {
     id: number
   }
 }
 
-export type MemosActionsTypes = AddMemoAction | DelMemoAction;
+interface ClearExpenseAction {
+  type: typeof CLEAR_EXPENSE
+}
+
+interface ModifyExpenseAction {
+  type: typeof MODIFY_EXPENSE
+  payload: Expense
+  meta: {
+    id: number
+  }
+}
+
+export type ExpensesActionsTypes = AddExpenseAction
+| DelExpenseAction
+| ModifyExpenseAction
+| ClearExpenseAction;

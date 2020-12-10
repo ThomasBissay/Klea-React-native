@@ -1,5 +1,5 @@
 import {
-  MemoState, ADD_MEMO, DEL_MEMO, MemosActionsTypes,
+  MemoState, ADD_MEMO, DEL_MEMO, CLEAR_MEMO, MemosActionsTypes,
 } from '../actions/types';
 
 const initialState: MemoState = {
@@ -18,6 +18,10 @@ export default function memosReducer(state = initialState,
         memos: state.memos.filter(
           (memo) => memo.id !== action.meta.id,
         ),
+      };
+    case CLEAR_MEMO:
+      return {
+        memos: [],
       };
     default:
       return state;

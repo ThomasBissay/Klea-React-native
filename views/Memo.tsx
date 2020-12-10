@@ -1,20 +1,36 @@
 import { DrawerActions } from '@react-navigation/native';
 import {
-  Text, View, Image, TouchableOpacity, TextInput, FlatList, Modal, Picker,
+  Text,
+  View,
+  Image,
+  TouchableOpacity, TextInput, FlatList, Modal, Picker, Alert, KeyboardAvoidingView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import HeaderKlea from '../component/HeaderKlea';
 import { style } from '../styles/styles';
 import { RootState } from '../redux/store';
 import { addMemo, deleteMemo } from '../redux/actions/memoUpdater';
 import { Memo } from '../redux/actions/types';
+import { MenuNavigatorParamList } from '../utils/NavigationTypes';
 
-export default function MemoScreen(props: any): JSX.Element {
+type MemoScreenNavigationProp = DrawerNavigationProp<
+MenuNavigatorParamList,
+'Memos'
+>;
+
+type PropsMemo = {
+  navigation: MemoScreenNavigationProp;
+};
+
+export default function MemoScreen({ navigation }: PropsMemo): JSX.Element {
   const dataMemo = useSelector((state: RootState) => state.memos);
   const dispatch = useDispatch();
   const [filters, setFilters] = useState({ f1: true, f2: true, f3: true });
+  const [filteredData, setFilteredData] = useState<Memo[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [search, setSearch] = useState('');
   const [currMemo, setCurrMemo] = useState(
     {
       id: '',
@@ -24,6 +40,32 @@ export default function MemoScreen(props: any): JSX.Element {
       tagColor: '#7badde',
     },
   );
+
+  const handleSearch = () => {
+    const newData = dataMemo.memos.filter((memo) => {
+      let tag = false;
+      switch (memo.tagColor) {
+        case '#7badde':
+          if (filters.f1) tag = true;
+          break;
+        case '#fcaf83':
+          if (filters.f2) tag = true;
+          break;
+        case '#d4483b':
+          if (filters.f3) tag = true;
+          break;
+        default:
+          break;
+      }
+      if (!tag) return (0);
+      return (memo.title.indexOf(search) > -1);
+    });
+    setFilteredData(newData);
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [search, filters, dataMemo]);
 
   const handleFilters = (target: string) => {
     switch (target) {
@@ -57,6 +99,11 @@ export default function MemoScreen(props: any): JSX.Element {
     }
   };
 
+  const guidGenerator = () => {
+    const S4 = () => (((1 + Math.random()) * 0x10000) || 0).toString(16).substring(1);
+    return (`${S4() + S4()}-${S4()}-${S4()}-${S4()}-${S4()}${S4()}${S4()}`);
+  };
+
   const clearCurrMemo = () => {
     setCurrMemo({
       id: '', title: '', text: '', tag: 'À faire', tagColor: '#7badde',
@@ -74,27 +121,29 @@ export default function MemoScreen(props: any): JSX.Element {
     setModalVisible(true);
   };
 
-  const delMemo = (id: number) => {
+  const delMemo = (id: string) => {
     dispatch(
       deleteMemo(id),
     );
   };
 
   const saveMemo = () => {
-    if (currMemo.id) {
-      delMemo(Number(currMemo.id));
-    }
-    dispatch(
-      addMemo({
-        id: dataMemo.memos.length + 1,
-        title: currMemo.title,
-        text: currMemo.text,
-        tag: currMemo.tag,
-        tagColor: currMemo.tagColor,
-      }),
-    );
-    clearCurrMemo();
-    setModalVisible(false);
+    if (currMemo.title && currMemo.text) {
+      if (currMemo.id) {
+        delMemo(currMemo.id);
+      }
+      dispatch(
+        addMemo({
+          id: guidGenerator(),
+          title: currMemo.title,
+          text: currMemo.text,
+          tag: currMemo.tag,
+          tagColor: currMemo.tagColor,
+        }),
+      );
+      clearCurrMemo();
+      setModalVisible(false);
+    } else Alert.alert('', 'Veuillez remplir tout les champs');
   };
 
   const modal = () => (
@@ -181,12 +230,15 @@ export default function MemoScreen(props: any): JSX.Element {
       {/* Header */}
       <HeaderKlea
         title="Mémos"
-        handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
+        handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}
         leftIconName="menu"
         rightIconName="none"
         handleRightClick={() => ''}
       />
-      <View style={style.header}>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={style.header}
+      >
         <View style={style.searchBar}>
           <Image
             style={style.infoIcon}
@@ -197,6 +249,7 @@ export default function MemoScreen(props: any): JSX.Element {
             style={style.searchInput}
             placeholder="Rechercher par titre ..."
             maxLength={40}
+            onChangeText={(text) => setSearch(text)}
           />
         </View>
         <View style={style.filtersBar}>
@@ -237,9 +290,9 @@ export default function MemoScreen(props: any): JSX.Element {
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
       <View style={style.body}>
-        <View style={{ height: '12%' }}>
+        <View>
           <TouchableOpacity
             style={style.memoButton}
             onPress={() => { setModalVisible(true); }}
@@ -249,12 +302,12 @@ export default function MemoScreen(props: any): JSX.Element {
               source={{ uri: 'https://img.icons8.com/pastel-glyph/64/5d9683/plus--v1.png' }}
               resizeMode="contain"
             />
-            <Text style={{ marginLeft: '22%', color: '#5d9683' }}>Nouveau mémo</Text>
+            <Text style={{ margin: '4%', marginLeft: '22%', color: '#5d9683' }}>Nouveau mémo</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, marginTop: '2%' }}>
           <FlatList
-            data={dataMemo.memos}
+            data={filteredData}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity style={style.memoItem} onPress={() => modifyMemo(item)}>

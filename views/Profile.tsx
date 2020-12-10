@@ -5,29 +5,42 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { DrawerActions } from '@react-navigation/native';
+import { DrawerActions, CompositeNavigationProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import HeaderKlea from '../component/HeaderKlea';
 import { RootState } from '../redux/store';
 import { style } from '../styles/styles';
+import DefaultImg from '../assets/example.png';
+import { MenuNavigatorParamList, ProfileNavigatorParamList } from '../utils/NavigationTypes';
 
-export default function ProfileScreen(props: any): JSX.Element {
+type ProfileScreenNavigationProp = CompositeNavigationProp<
+DrawerNavigationProp<MenuNavigatorParamList, 'Profil'>,
+StackNavigationProp<ProfileNavigatorParamList>
+>;
+
+type PropsProfil = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+export default function ProfileScreen({ navigation }: PropsProfil): JSX.Element {
   const data = useSelector((state: RootState) => state.profile);
 
   return (
     <View style={style.container}>
       <HeaderKlea
         title="Profil"
-        handleMenu={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
+        handleMenu={() => navigation.dispatch(DrawerActions.toggleDrawer())}
         leftIconName="menu"
         rightIconName="edit"
-        handleRightClick={() => props.navigation.navigate('EditProfil')}
+        handleRightClick={() => navigation.navigate('EditProfil')}
       />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={style.body}>
           <View style={{ alignItems: 'center' }}>
-            {/* eslint-disable-next-line global-require */}
-            <Image source={data.imageProfil !== '' ? { uri: data.imageProfil } : require('../assets/example.png')} style={style.avatar} />
+            <Image source={data.imageProfil !== '' ? { uri: data.imageProfil } : DefaultImg} style={style.avatar} />
             <Text style={style.name}>
               {data.firstName !== '' ? `${data.firstName} ${data.lastName}` : 'Anonyme'}
               {' '}
@@ -35,42 +48,42 @@ export default function ProfileScreen(props: any): JSX.Element {
           </View>
           <View style={style.infoBox}>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/important-mail.png' }}
-                resizeMode="contain"
+              <Icon
+                name="at"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <Text style={style.info}>{data.email !== '' ? data.email : 'Non renseigné'}</Text>
             </View>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/material-sharp/24/000000/gender.png' }}
-                resizeMode="contain"
+              <Icon
+                name="gender-male-female"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <Text style={style.info}>{data.gender !== '' ? data.gender : 'Non renseigné'}</Text>
             </View>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/material-rounded/24/000000/home.png' }}
-                resizeMode="contain"
+              <Icon
+                name="city"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <Text style={style.info}>{data.address !== '' ? data.address : 'Non renseigné'}</Text>
             </View>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/android/24/000000/phone.png' }}
-                resizeMode="contain"
+              <Icon
+                name="cellphone"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <Text style={style.info}>{data.phoneNumber !== '' ? data.phoneNumber : 'Non renseigné'}</Text>
             </View>
             <View style={style.infoContainer}>
-              <Image
-                style={style.infoIcon}
-                source={{ uri: 'https://img.icons8.com/metro/26/000000/info.png' }}
-                resizeMode="contain"
+              <Icon
+                name="information-outline"
+                style={{ marginRight: 20 }}
+                size={20}
               />
               <Text style={style.info}>{data.bio !== '' ? data.bio : 'Non renseigné'}</Text>
             </View>
